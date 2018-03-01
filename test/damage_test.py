@@ -1,25 +1,26 @@
 from core.move import NormalMove, SpecialMove
-from core.damage import level_revision, base_damage
+from core.level import Level
+from core.damage import base_damage
 
 
 def setup():
     global a, b
     a = {
-        'level': 50,
+        'level': Level(50),
         'atk': 150,
         'sp.atk': 150,
     }
     b = {
-        'level': 50,
+        'level': Level(50),
         'def': 100,
         'sp.def': 100,
     }
 
 
 def test_level_revision():
-    assert level_revision(1) == 2.4
-    assert level_revision(10) == 6.0
-    assert level_revision(50) == 22.0
+    assert Level(1).correct(1) == 2.4
+    assert Level(10).correct(1) == 6.0
+    assert Level(50).correct(1) == 22.0
 
 
 def test_base_damage():
