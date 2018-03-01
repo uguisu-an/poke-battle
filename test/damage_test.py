@@ -24,11 +24,11 @@ def test_level_revision():
 
 
 def test_base_damage():
-    a['move'] = NormalMove(120)
-    assert base_damage(a, b) == 81.2
+    move = NormalMove(120)
+    assert base_damage(move, a, b) == 81.2
 
 
 def test_base_damage_with_special_move():
-    a['move'] = SpecialMove(120)
-    assert base_damage(a, b) == 81.2
+    move = SpecialMove(120)
+    assert base_damage(move, a, b) == 81.2
 
