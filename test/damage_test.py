@@ -20,10 +20,10 @@ def setup():
     }
 
 
-def test_level_revision():
-    assert Level(1).correct(1) == 2.4
-    assert Level(10).correct(1) == 6.0
-    assert Level(50).correct(1) == 22.0
+def test_level_adjust_attack():
+    assert Level(1).adjust(1) == 2.4
+    assert Level(10).adjust(1) == 6.0
+    assert Level(50).adjust(1) == 22.0
 
 
 def test_base_damage():

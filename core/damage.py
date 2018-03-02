@@ -22,7 +22,7 @@ class Attacker:
         return move.select_attack(self._attacker)
 
     def _adjust_by_level(self, attack):
-        return self._attacker['level'].correct(attack)
+        return self._attacker['level'].adjust(attack)
 
 
 class Defender:
