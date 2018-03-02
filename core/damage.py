@@ -1,3 +1,6 @@
+import random
+
+
 def base_damage(move, a, b):
     return move.power * Attacker(a).make(move) / Defender(b).make(move) + 2
 
@@ -9,6 +12,14 @@ def type_effect(move, a, b):
     for type_ in b['types']:
         effect *= move.type.affect(type_)
     return effect
+
+
+def _randomize(minimum, maximum):
+    return random.choice(range(minimum, maximum + 1))
+
+
+def randomized(damage, randomizer=_randomize):
+    return damage * (randomizer(85, 100) / 100)
 
 
 class Attacker:

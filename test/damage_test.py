@@ -1,7 +1,7 @@
 import core.type as t
 from core.move import NormalMove, SpecialMove
 from core.level import Level
-from core.damage import base_damage, type_effect
+from core.damage import base_damage, type_effect, randomized
 
 
 def setup():
@@ -57,3 +57,8 @@ def test_damage_dragon_type_chemistry():
     assert type_effect(NormalMove(move_type=t.Dragon), a, b) == 0
 
 
+def test_randomized_damage():
+    get_minimum = (lambda m, _: m)
+    get_maximum = (lambda _, n: n)
+    assert randomized(100, randomizer=get_minimum) == 85
+    assert randomized(100, randomizer=get_maximum) == 100
