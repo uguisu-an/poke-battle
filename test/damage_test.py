@@ -1,6 +1,7 @@
+import core.type as t
 from core.move import NormalMove, SpecialMove
 from core.level import Level
-from core.damage import base_damage
+from core.damage import base_damage, type_effect
 
 
 def setup():
@@ -32,3 +33,9 @@ def test_base_damage_with_special_move():
     move = SpecialMove(120)
     assert base_damage(move, a, b) == 81.2
 
+
+def test_damage_type_match_boost():
+    a['types'] = [t.Normal]
+    b['types'] = [t.Water, t.Fire]
+    assert type_effect(NormalMove(move_type=t.Normal), a, b) == 1.2
+    assert type_effect(SpecialMove(move_type=t.Electric), b, a) == 1.0

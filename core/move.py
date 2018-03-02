@@ -1,6 +1,8 @@
+# TODO: NoneType作る？
 class NormalMove:
-    def __init__(self, power):
+    def __init__(self, power=0, move_type=None):
         self._power = power
+        self.type = move_type
 
     def _select_attack(self, attacker):
         return attacker['atk']
