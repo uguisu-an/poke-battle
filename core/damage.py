@@ -6,4 +6,6 @@ def type_effect(move, a, b):
     effect = 1
     for type_ in a['types']:
         effect *= move.type.boost(type_)
+    for type_ in b['types']:
+        effect *= move.type.affect(type_)
     return effect
