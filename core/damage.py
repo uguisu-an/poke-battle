@@ -1,5 +1,5 @@
 def base_damage(move, a, b):
-    return a['level'].correct(move.damage(a, b)) / 50 + 2
+    return move.power * Attacker(a).make(move) / Defender(b).make(move) + 2
 
 
 def type_effect(move, a, b):
@@ -9,3 +9,28 @@ def type_effect(move, a, b):
     for type_ in b['types']:
         effect *= move.type.affect(type_)
     return effect
+
+
+class Attacker:
+    def __init__(self, attacker):
+        self._attacker = attacker
+
+    def make(self, move):
+        return self._adjust_by_level(self._attack_with(move))
+
+    def _attack_with(self, move):
+        return move.select_attack(self._attacker)
+
+    def _adjust_by_level(self, attack):
+        return self._attacker['level'].correct(attack)
+
+
+class Defender:
+    def __init__(self, defender):
+        self._defender = defender
+
+    def make(self, move):
+        return self._defend_against(move) * 50
+
+    def _defend_against(self, move):
+        return move.select_defence(self._defender)
