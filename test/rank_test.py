@@ -1,4 +1,13 @@
-from core.rank import Rank
+from core.stat import *
+
+
+def test_stat():
+    atk = Stat(100)
+    assert atk == 100
+    atk.rank.up()
+    assert atk == 150
+    atk.rank.down()
+    assert atk == 100
 
 
 def test_rank_ratio():
