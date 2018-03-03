@@ -57,3 +57,16 @@ def test_heavy_rain_even_decrease_fire_power():
     move = SpecialMove(100, t.Fire)
     weather.adjust('Heavy Rain', move)
     assert move.power == 0
+
+
+def test_hail_decrease_solar_beam():
+    move = SpecialMove(120, t.Grass, 'Solar Beam')
+    weather.adjust('Hail', move)
+    assert move.power == 60
+
+
+def test_hail_change_weather_ball():
+    move = SpecialMove(50, t.Normal, 'Weather Ball')
+    weather.adjust('Hail', move)
+    assert move.power == 100
+    assert move.type == t.Ice
