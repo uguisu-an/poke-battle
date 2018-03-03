@@ -12,10 +12,13 @@ class Stat:
 
 
 class Rank:
+    MINIMUM = -6
+    MAXIMUM = +6
+
     def __init__(self, rank=0):
         self._rank = rank
 
-    def ratio(self):
+    def _ratio(self):
         a = 2
         b = 2
         if self._rank > 0:
@@ -25,14 +28,14 @@ class Rank:
         return a / b
 
     def adjust(self, stat):
-        return stat * self.ratio()
+        return stat * self._ratio()
 
     def up(self):
-        if self._rank >= 6:
+        if self._rank >= self.MAXIMUM:
             return
         self._rank += 1
 
     def down(self):
-        if self._rank <= -6:
+        if self._rank <= self.MINIMUM:
             return
         self._rank -= 1
