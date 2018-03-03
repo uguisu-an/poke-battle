@@ -1,25 +1,24 @@
 import core.type as t
 
 
-# def adjust_accuracy(weather, move):
-#     accuracy = 1.0
-#     if weather == 'Sunny':
-#         if move == 'Thunder' or move == 'Hurricane':
-#             accuracy *= 0.5
-#     return accuracy
-
-
-def adjust(weather, damage, damage_type):
+def adjust(weather, move):
     if weather == 'Sunny':
-        if damage_type == t.Fire:
-            damage *= 1.5
-        if damage_type == t.Water:
-            damage *= 0.5
+        if move.type == t.Fire:
+            move.power *= 1.5
+        if move.type == t.Water:
+            move.power *= 0.5
+        if move.name == 'Weather Ball':
+            move.power *= 2.0
+            move.type = t.Fire
     if weather == 'Rain':
-        if damage_type == t.Fire:
-            damage *= 0.5
-        if damage_type == t.Water:
-            damage *= 1.5
-    return damage
+        if move.type == t.Fire:
+            move.power *= 0.5
+        if move.type == t.Water:
+            move.power *= 1.5
+        if move.name == 'Solar Beam':
+            move.power *= 0.5
+        if move.name == 'Weather Ball':
+            move.power *= 2.0
+            move.type = t.Water
 
 

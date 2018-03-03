@@ -8,7 +8,8 @@ class Move:
 
 # TODO: NoneType作る？
 class NormalMove(Move):
-    def __init__(self, power=0, move_type=None):
+    def __init__(self, power=0, move_type=None, name=''):
+        self.name = name
         self.power = power
         self.type = move_type
 
@@ -20,7 +21,8 @@ class NormalMove(Move):
 
 
 class SpecialMove(Move):
-    def __init__(self, power=0, move_type=None):
+    def __init__(self, power=0, move_type=None, name=''):
+        self.name = name
         self.power = power
         self.type = move_type
 
