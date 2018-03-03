@@ -70,3 +70,16 @@ def test_hail_change_weather_ball():
     weather.adjust('Hail', move)
     assert move.power == 100
     assert move.type == t.Ice
+
+
+def test_sandstorm_decrease_solar_beam():
+    move = SpecialMove(120, t.Grass, 'Solar Beam')
+    weather.adjust('Sandstorm', move)
+    assert move.power == 60
+
+
+def test_sandstorm_change_weather_ball():
+    move = SpecialMove(50, t.Normal, 'Weather Ball')
+    weather.adjust('Sandstorm', move)
+    assert move.power == 100
+    assert move.type == t.Rock
