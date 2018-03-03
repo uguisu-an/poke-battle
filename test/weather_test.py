@@ -45,3 +45,15 @@ def test_rain_change_weather_ball():
     weather.adjust('Rain', move)
     assert move.power == 100
     assert move.type == t.Water
+
+
+def test_drought_even_decrease_water_power():
+    move = SpecialMove(100, t.Water)
+    weather.adjust('Drought', move)
+    assert move.power == 0
+
+
+def test_heavy_rain_even_decrease_fire_power():
+    move = SpecialMove(100, t.Fire)
+    weather.adjust('Heavy Rain', move)
+    assert move.power == 0
