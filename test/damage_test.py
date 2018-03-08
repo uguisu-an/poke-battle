@@ -25,7 +25,5 @@ def test_type_match_up():
 
 
 def test_randomized_damage():
-    get_minimum = (lambda m, _: m)
-    get_maximum = (lambda _, n: n)
-    assert randomized(100, randomizer=get_minimum) == 85
-    assert randomized(100, randomizer=get_maximum) == 100
+    assert randomized(100, randomizer=minimizer) == 85
+    assert randomized(100, randomizer=maximizer) == 100
