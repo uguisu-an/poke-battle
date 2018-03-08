@@ -3,10 +3,10 @@ from core.move import SpecialAttack
 from core.effect.weather import *
 
 
-def _stat_depends_on_weather(weather):
+def new_solar_ball(weather):
     if weather in (Rainy, HeavyRainy, Hailstorm, Sandstorm):
-        return 60
-    return 120
+        return WeakSolarBeam()
+    return SolarBeam()
 
 
 class SolarBeam(SpecialAttack):
@@ -14,5 +14,8 @@ class SolarBeam(SpecialAttack):
     type = Grass
     power = 120
 
-    def affected_by(self, weather):
-        self.power = _stat_depends_on_weather(weather)
+
+class WeakSolarBeam(SpecialAttack):
+    name = 'Solar Beam'
+    type = Grass
+    power = 60
