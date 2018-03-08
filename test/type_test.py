@@ -17,8 +17,3 @@ def test_dragon_type_chemistry():
     assert t.Dragon.affect(t.Dragon) == 2.0
     assert t.Dragon.affect(t.Steel) == 0.5
     assert t.Dragon.affect(t.Fairy) == 0
-
-
-def test_dragon_type_match_boost():
-    assert t.Dragon.boost(t.Dragon) == 1.2
-    assert t.Dragon.boost(t.Normal) == 1.0

@@ -29,11 +29,6 @@ class Type:
     def affect(self, other):
         return self.chemistry[other.id]
 
-    def boost(self, other):
-        if self == other:
-            return 1.2
-        return 1.0
-
 
 Normal = Type(0)
 Fire = Type(1)
