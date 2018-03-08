@@ -8,7 +8,14 @@
 #         pass
 
 
-class PhysicalAttack:
+class Attack:
+    type = None
+
+    def type_match(self, monster_type):
+        return monster_type.match(self.type)
+
+
+class PhysicalAttack(Attack):
     @staticmethod
     def select_attack(attacker):
         return attacker.py_atk
@@ -18,7 +25,7 @@ class PhysicalAttack:
         return defender.py_def
 
 
-class SpecialAttack:
+class SpecialAttack(Attack):
     @staticmethod
     def select_attack(attacker):
         return attacker.sp_atk

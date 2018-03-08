@@ -1,7 +1,8 @@
 import core.type as t
-from core.move import NormalMove, SpecialMove
+from core.move import *
 from core.level import Level
 from core.damage import *
+from core.monster import Monster
 
 
 def setup():
@@ -27,8 +28,15 @@ def test_level_adjust_attack():
 
 
 def test_base_damage():
-    assert base_damage_from_power(120, 1) == 122
-    assert base_damage_from_power(120, 2) == 242
+    assert base_damage(120, 1.0) == 122
+    assert base_damage(120, 2.0) == 242
+
+
+def test_type_match():
+    move = Attack()
+    move.type = t.Normal
+    assert move.type_match(t.MonsterType(t.Normal))
+    assert not move.type_match(t.MonsterType(t.Dragon))
 
 
 def test_damage_same_type_bonus():

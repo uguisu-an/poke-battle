@@ -35,6 +35,18 @@ class Type:
         return 1.0
 
 
+# 複合可能なモンスター用のタイプクラス
+class MonsterType:
+    def __init__(self, *types):
+        self._types = types
+
+    def match(self, other):
+        for t in self._types:
+            if t == other:
+                return True
+        return False
+
+
 Normal = Type(0)
 Fire = Type(1)
 Water = Type(2)
