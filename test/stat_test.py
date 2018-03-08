@@ -1,4 +1,11 @@
 from core.stat import *
+from core.level import *
+
+
+def test_level_rate():
+    assert Level(1).get_rate() == 2.4
+    assert Level(10).get_rate() == 6.0
+    assert Level(50).get_rate() == 22.0
 
 
 def test_stat():

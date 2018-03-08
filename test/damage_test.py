@@ -4,12 +4,6 @@ from core.level import Level
 from core.damage import *
 
 
-def test_level_adjust_attack():
-    assert Level(1).adjust(1) == 2.4
-    assert Level(10).adjust(1) == 6.0
-    assert Level(50).adjust(1) == 22.0
-
-
 def test_base_damage():
     assert base_damage(120, 1.0) == 122
     assert base_damage(120, 2.0) == 242
