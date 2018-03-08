@@ -16,9 +16,11 @@ class Rank:
     MAXIMUM = +6
 
     def __init__(self, rank=0):
+        assert Rank.MINIMUM <= rank <= Rank.MAXIMUM
         self._rank = rank
 
-    def _ratio(self):
+    @property
+    def rate(self):
         a = 2
         b = 2
         if self._rank > 0:
@@ -28,7 +30,7 @@ class Rank:
         return a / b
 
     def adjust(self, stat):
-        return stat * self._ratio()
+        return stat * self.rate
 
     def up(self):
         if self._rank >= self.MAXIMUM:
