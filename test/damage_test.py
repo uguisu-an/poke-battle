@@ -1,7 +1,7 @@
 import core.type as t
 from core.move import NormalMove, SpecialMove
 from core.level import Level
-from core.damage import base_damage, type_effect, randomized
+from core.damage import *
 
 
 def setup():
@@ -27,13 +27,8 @@ def test_level_adjust_attack():
 
 
 def test_base_damage():
-    move = NormalMove(120)
-    assert base_damage(move, a, b) == 81.2
-
-
-def test_base_damage_with_special_move():
-    move = SpecialMove(120)
-    assert base_damage(move, a, b) == 81.2
+    assert base_damage_from_power(120, 1) == 122
+    assert base_damage_from_power(120, 2) == 242
 
 
 def test_damage_same_type_bonus():

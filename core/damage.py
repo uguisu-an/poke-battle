@@ -1,6 +1,10 @@
 import random
 
 
+def base_damage_from_power(power, attack_defence_ratio):
+    return power * attack_defence_ratio + 2
+
+
 def base_damage(move, a, b):
     return move.power * Attacker(a).make(move) / Defender(b).make(move) + 2
 
