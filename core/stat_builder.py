@@ -1,10 +1,12 @@
 from copy import copy
 from core.monster import MonsterStat
 from core.character import *
+from core.item import *
 
 
 class StatBuilder:
     _monster = None
+    _monster_name = None
     _monster_character = None
     _item = None
     _partner = None
@@ -18,6 +20,7 @@ class StatBuilder:
 
     def add_monster(self, monster):
         self._monster = monster
+        self._monster_name = monster.name
         self._monster_character = monster.character
         self._item = monster.item
 
@@ -34,4 +37,6 @@ class StatBuilder:
             stat.sp_atk *= 1.5
         if self._monster_character == Minus and self._partner_character == Plus:
             stat.sp_atk *= 1.5
+        if self._item == ThickClub and self._monster_name in ('Cubone', 'Marowak'):
+            stat.py_atk *= 2.0
         return stat

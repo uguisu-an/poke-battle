@@ -3,6 +3,7 @@ from core.level import Level
 
 
 class Monster:
+    name = ''
     type = Normal
     level = Level(1)
     item = None

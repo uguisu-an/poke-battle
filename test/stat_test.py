@@ -1,5 +1,6 @@
 from core.stat import *
 from core.monster import *
+from core.item import *
 from core.stat_builder import *
 
 
@@ -36,6 +37,7 @@ def test_rank_down_limit():
     assert rank.adjust(100) == 25
 
 
+# ごちゃごちゃしてる
 def test_defeatist():
     base = MonsterStat(hp=100, max_hp=100, py_atk=20, sp_atk=30)
     builder = StatBuilder()
@@ -50,6 +52,7 @@ def test_defeatist():
     assert stat.sp_atk == 15
 
 
+# ごちゃごちゃしてる
 def test_plus_and_minus():
     a = Monster()
     a.character = Plus
@@ -63,3 +66,18 @@ def test_plus_and_minus():
     builder.add_partner(b)
     stat = builder.build(base)
     assert stat.sp_atk == 75
+
+
+def test_thick_club():
+    other = Monster()
+    cubone = Monster()
+    cubone.name = 'Cubone'
+    cubone.item = ThickClub
+    builder = StatBuilder()
+    builder.add_monster(cubone)
+    stat = builder.build(MonsterStat(py_atk=50))
+    assert stat.py_atk == 100
+    builder.add_monster(other)
+    stat = builder.build(MonsterStat(py_atk=50))
+    assert stat.py_atk == 50
+
