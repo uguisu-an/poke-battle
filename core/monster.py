@@ -5,6 +5,8 @@ from core.level import Level
 class Monster:
     type = Normal
     level = Level(1)
+    item = None
+    character = None
 
     def __init__(self, py_atk=1, sp_atk=1, py_def=1, sp_def=1):
         self.py_atk = py_atk

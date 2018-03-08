@@ -48,3 +48,18 @@ def test_defeatist():
     stat = builder.build(base)
     assert stat.py_atk == 10
     assert stat.sp_atk == 15
+
+
+def test_plus_and_minus():
+    a = Monster()
+    a.character = Plus
+    b = Monster()
+    b.character = Minus
+    base = MonsterStat(sp_atk=50)
+    builder = StatBuilder()
+    builder.add_monster(a)
+    stat = builder.build(base)
+    assert stat.sp_atk == 50
+    builder.add_partner(b)
+    stat = builder.build(base)
+    assert stat.sp_atk == 75
