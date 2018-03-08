@@ -1,6 +1,4 @@
-import core.type as t
 from core.effect.env import Environment
-from core.effect.weather import *
 from core.move import *
 from core.move.factory import MoveFactory
 from core.move.weatherball import WeatherBall

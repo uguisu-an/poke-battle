@@ -21,3 +21,11 @@ class Monster:
         return move.select_defence(self) * 50
 
 
+class MonsterStat:
+    def __init__(self, hp=0, max_hp=0, py_atk=0, sp_atk=0, py_def=0, sp_def=0):
+        self.hp = hp
+        self.max_hp = max_hp
+        self.py_atk = py_atk
+        self.sp_atk = sp_atk
+        self.py_def = py_def
+        self.sp_def = sp_def

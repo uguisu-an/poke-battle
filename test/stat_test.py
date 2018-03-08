@@ -1,5 +1,6 @@
 from core.stat import *
-from core.level import *
+from core.monster import *
+from core.stat_builder import *
 
 
 def test_level_rate():
@@ -33,3 +34,17 @@ def test_rank_down_limit():
     rank = Rank(-6)
     rank.down()
     assert rank.adjust(100) == 25
+
+
+def test_defeatist():
+    base = MonsterStat(hp=100, max_hp=100, py_atk=20, sp_atk=30)
+    builder = StatBuilder()
+    builder.add_character(Defeatist)
+    stat = builder.build(base)
+    assert stat.py_atk == 20
+    assert stat.sp_atk == 30
+    base.hp = 50
+    builder.add_character(Defeatist)
+    stat = builder.build(base)
+    assert stat.py_atk == 10
+    assert stat.sp_atk == 15
