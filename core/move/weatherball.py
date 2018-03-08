@@ -1,24 +1,45 @@
-import core.type as t
 from core.move import SpecialAttack
+from core.type import Normal, Fire, Water, Ice, Rock
 from core.effect.weather import *
 
 
-def _stat_depends_on_weather(weather):
+def new_weather_ball(weather):
     if weather in (Sunny, Drought):
-        return 100, t.Fire
+        return FireWeatherBall()
     if weather in (Rainy, HeavyRainy):
-        return 100, t.Water
+        return WaterWeatherBall()
     if weather in (Hailstorm,):
-        return 100, t.Ice
+        return IceWeatherBall()
     if weather in (Sandstorm,):
-        return 100, t.Rock
-    return 50, t.Normal
+        return RockWeatherBall()
+    return WeatherBall()
 
 
 class WeatherBall(SpecialAttack):
     name = 'Weather Ball'
-    type = t.Normal
+    type = Normal
     power = 50
 
-    def affected_by(self, weather):
-        self.power, self.type = _stat_depends_on_weather(weather)
+
+class FireWeatherBall(SpecialAttack):
+    name = 'Weather Ball'
+    type = Fire
+    power = 100
+
+
+class WaterWeatherBall(SpecialAttack):
+    name = 'Weather Ball'
+    type = Water
+    power = 100
+
+
+class IceWeatherBall(SpecialAttack):
+    name = 'Weather Ball'
+    type = Ice
+    power = 100
+
+
+class RockWeatherBall(SpecialAttack):
+    name = 'Weather Ball'
+    type = Rock
+    power = 100

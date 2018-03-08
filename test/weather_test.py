@@ -1,6 +1,8 @@
 import core.type as t
+from core.effect.env import Environment
 from core.effect.weather import *
 from core.move import *
+from core.move.factory import MoveFactory
 from core.move.weatherball import WeatherBall
 from core.move.solarbeam import SolarBeam
 
@@ -54,14 +56,16 @@ def test_heavy_rain_even_decrease_fire_power():
 
 
 def test_sunny_change_weather_ball():
-    move = WeatherBall()
-    move.affected_by(Sunny)
+    e = Environment()
+    e.weather = Sunny
+    move = MoveFactory(e).create(WeatherBall.name)
     assert move.power == 100
     assert move.type == t.Fire
 
 
 def test_rainy_decrease_solar_beam():
-    move = SolarBeam()
-    move.affected_by(Rainy)
+    e = Environment()
+    e.weather = Rainy
+    move = MoveFactory(e).create(SolarBeam.name)
     assert move.power == 60
 
