@@ -1,3 +1,4 @@
+from collections import namedtuple
 import core.type as t
 
 
@@ -21,9 +22,6 @@ def sunny_adjust(move):
         move.power *= 1.5
     if move.type == t.Water:
         move.power *= 0.5
-    if move.name == 'Weather Ball':
-        move.power *= 2.0
-        move.type = t.Fire
 
 
 def drought_adjust(move):
@@ -39,9 +37,6 @@ def rainy_adjust(move):
         move.power *= 1.5
     if move.name == 'Solar Beam':
         move.power *= 0.5
-    if move.name == 'Weather Ball':
-        move.power *= 2.0
-        move.type = t.Water
 
 
 def heavy_rainy_adjust(move):
@@ -53,14 +48,23 @@ def heavy_rainy_adjust(move):
 def hailstorm_adjust(move):
     if move.name == 'Solar Beam':
         move.power *= 0.5
-    if move.name == 'Weather Ball':
-        move.power *= 2.0
-        move.type = t.Ice
 
 
 def sandstorm_adjust(move):
     if move.name == 'Solar Beam':
         move.power *= 0.5
-    if move.name == 'Weather Ball':
-        move.power *= 2.0
-        move.type = t.Rock
+
+
+Weather = namedtuple('Weather', 'name')
+NoWeather = Weather('NoWeather')
+Sunny = Weather('Sunny')
+Rainy = Weather('Rainy')
+Drought = Weather('Drought')
+HeavyRainy = Weather('Heavy Rainy')
+Turbulence = Weather('Turbulence')
+Hailstorm = Weather('Hailstorm')
+Sandstorm = Weather('Sandstorm')
+
+
+class Environment:
+    weather = NoWeather
