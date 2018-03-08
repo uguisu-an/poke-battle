@@ -1,3 +1,4 @@
+import core.type as t
 from functools import reduce
 from operator import mul
 from core.effect.weather import *
