@@ -1,26 +1,23 @@
-# class Move:
-#     def __init__(self, source, target, environment=None):
-#         self.source = source
-#         self.target = target
-#         self.environment = environment
-#
-#     def doit(self):
-#         pass
+from functools import reduce
+from operator import mul
 
 
 class Attack:
     type = None
 
-    def type_match(self, monster_type):
-        return monster_type.match(self.type)
+    # タイプ一致の判定
+    def type_match(self, *types):
+        return any(t == self.type for t in types)
 
-    def type_match_bonus(self, monster_type):
-        if self.type_match(monster_type):
+    # タイプ一致による補正値
+    def type_match_bonus(self, *types):
+        if self.type_match(*types):
             return 1.2
         return 1.0
 
-    def type_match_up(self, monster_type):
-        return monster_type.match_up(self.type)
+    # タイプ相性による補正値
+    def type_match_up(self, *types):
+        return reduce(mul, (self.type.affect(t) for t in types))
 
 
 class PhysicalAttack(Attack):

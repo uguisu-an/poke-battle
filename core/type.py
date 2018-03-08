@@ -1,7 +1,3 @@
-from functools import reduce
-from operator import mul
-
-
 # 行が攻撃側、列が防御側
 _type_chemistry = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 0, 1, 1, 0.5, 0],
@@ -37,21 +33,6 @@ class Type:
         if self == other:
             return 1.2
         return 1.0
-
-
-# 複合可能なモンスター用のタイプクラス
-class MonsterType:
-    def __init__(self, *types):
-        self._types = types
-
-    def match(self, other):
-        for t in self._types:
-            if t == other:
-                return True
-        return False
-
-    def match_up(self, other):
-        return reduce(mul, (other.affect(t) for t in self._types))
 
 
 Normal = Type(0)
