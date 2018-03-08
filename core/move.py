@@ -1,3 +1,33 @@
+# class Move:
+#     def __init__(self, source, target, environment=None):
+#         self.source = source
+#         self.target = target
+#         self.environment = environment
+#
+#     def doit(self):
+#         pass
+
+
+class PhysicalAttack:
+    @staticmethod
+    def select_attack(attacker):
+        return attacker.py_atk
+
+    @staticmethod
+    def select_defence(defender):
+        return defender.py_def
+
+
+class SpecialAttack:
+    @staticmethod
+    def select_attack(attacker):
+        return attacker.sp_atk
+
+    @staticmethod
+    def select_defence(defender):
+        return defender.sp_def
+
+
 class Move:
     def select_attack(self, attacker):
         return 0
