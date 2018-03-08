@@ -39,25 +39,12 @@ def test_type_match():
     assert not move.type_match(t.MonsterType(t.Dragon))
 
 
-def test_damage_same_type_bonus():
-    a['types'] = [t.Normal]
-    b['types'] = [t.Water, t.Fire]
-    assert type_effect(NormalMove(move_type=t.Normal), a, b) == 1.2
-    assert type_effect(SpecialMove(move_type=t.Electric), b, a) == 1.0
-
-
-def test_damage_water_type_chemistry():
-    b['types'] = [t.Water]
-    assert type_effect(NormalMove(move_type=t.Water), a, b) == 0.5
-    b['types'] = [t.Fire, t.Water]
-    assert type_effect(NormalMove(move_type=t.Water), a, b) == 1.0
-
-
-def test_damage_dragon_type_chemistry():
-    b['types'] = [t.Dragon]
-    assert type_effect(NormalMove(move_type=t.Dragon), a, b) == 2.0
-    b['types'] = [t.Dragon, t.Fairy]
-    assert type_effect(NormalMove(move_type=t.Dragon), a, b) == 0
+def test_type_match_up():
+    move = Attack()
+    move.type = t.Ground
+    assert move.type_match_up(t.MonsterType(t.Fire, t.Flying)) == 0
+    assert move.type_match_up(t.MonsterType(t.Fire, t.Grass)) == 1.0
+    assert move.type_match_up(t.MonsterType(t.Fire, t.Electric)) == 4.0
 
 
 def test_randomized_damage():

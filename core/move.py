@@ -19,6 +19,9 @@ class Attack:
             return 1.2
         return 1.0
 
+    def type_match_up(self, monster_type):
+        return monster_type.match_up(self.type)
+
 
 class PhysicalAttack(Attack):
     @staticmethod
