@@ -1,3 +1,4 @@
+import math
 import random
 from core.move import Attack
 from core.monster import Monster
@@ -28,7 +29,7 @@ def randomized(damage, randomizer=default_randomizer):
 
 
 class DamageCalculator:
-    randomizer = default_randomizer
+    randomizer = None
     attacker = None
     attacker_item = None
     attacker_character = None
@@ -41,6 +42,7 @@ class DamageCalculator:
         self.move: Attack = move
         self.add_attacker(attacker)
         self.add_defender(defender)
+        self.add_randomizer(default_randomizer)
 
     def add_attacker(self, attacker: Monster):
         self.attacker = attacker
@@ -108,4 +110,4 @@ class DamageCalculator:
         damage = damage * self.calc_item_bonus()
         damage = damage * self.calc_character_bonus()
         damage = damage * self.calc_critical_bonus()
-        return damage
+        return math.floor(damage)

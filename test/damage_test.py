@@ -27,3 +27,14 @@ def test_type_match_up():
 def test_randomized_damage():
     assert randomized(100, randomizer=minimizer) == 85
     assert randomized(100, randomizer=maximizer) == 100
+
+
+def test_damage_calculator():
+    move = PhysicalAttack()
+    move.type = t.Normal
+    move.power = 120
+    attacker = Monster(py_atk=200, level=50)
+    defender = Monster(py_def=150)
+    damage = DamageCalculator(move, attacker, defender)
+    damage.add_randomizer(maximizer)
+    assert damage.calc() == 86

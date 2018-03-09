@@ -9,7 +9,10 @@ class Monster:
     item = None
     character = None
 
-    def __init__(self, py_atk=1, sp_atk=1, py_def=1, sp_def=1):
+    def __init__(self, level=1, hp=0, max_hp=0, py_atk=1, sp_atk=1, py_def=1, sp_def=1):
+        self.level = Level(level)
+        self.hp = hp
+        self.max_hp = max_hp
         self.py_atk = py_atk
         self.sp_atk = sp_atk
         self.py_def = py_def
