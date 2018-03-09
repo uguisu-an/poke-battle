@@ -77,6 +77,16 @@ class DamageCalculator:
         return self.attacker.attack(self.move) / self.defender.defend(self.move)
 
     def calc_item_bonus(self):
+        return self.calc_attacker_item_bonus() * self.calc_defender_item_bonus()
+
+    def calc_attacker_item_bonus(self):
+        if self.attacker_item == LifeOrb:
+            return 1.3
+        if self.attacker_item == ExpertBelt:
+            return 1.2
+        return 1.0
+
+    def calc_defender_item_bonus(self):
         if self.defender_item == Berry:
             return 0.5
         return 1.0
