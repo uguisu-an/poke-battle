@@ -1,3 +1,6 @@
+import math
+
+
 class HitPoint:
     def __init__(self, current=None, maximum=0):
         self.maximum = maximum
@@ -60,3 +63,14 @@ class Rank:
         if self._rank <= self.MINIMUM:
             return
         self._rank -= 1
+    
+    
+def create_hp(base, effort=255, individual=31, level=50):
+    value = math.floor(level/100 * (base*2 + effort + individual/4) + 5)
+    return HitPoint(value)
+
+
+def create_stat(base, effort=255, individual=31, level=50):
+    value = math.floor(level/100 * (base*2 + effort + individual/4) + level + 10)
+    return Stat(value)
+
