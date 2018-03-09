@@ -2,6 +2,7 @@ import core.type as t
 from core.move import *
 from core.level import Level
 from core.damage import *
+from core.event import *
 
 
 def test_base_damage():
@@ -38,3 +39,13 @@ def test_damage_calculator():
     damage = DamageCalculator(move, attacker, defender)
     damage.add_randomizer(maximizer)
     assert damage.calc() == 86
+
+
+def test_phantom_guard():
+    event = EventEmitter()
+    owner = Monster(hp=50, max_hp=50)
+    guard = ObservablePhantomGuard(owner)
+    guard.listen(event)
+    damage = Damage(100)
+    event.emit('damage_defender', None, owner, damage)
+    assert damage == 50

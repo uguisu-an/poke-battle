@@ -111,3 +111,17 @@ class DamageCalculator:
         damage = damage * self.calc_character_bonus()
         damage = damage * self.calc_critical_bonus()
         return math.floor(damage)
+
+
+class Damage:
+    def __init__(self, damage):
+        self._damage = damage
+
+    def __eq__(self, other):
+        return self._damage == other
+
+    def __repr__(self):
+        return self._damage
+
+    def __imul__(self, other):
+        self._damage *= other
