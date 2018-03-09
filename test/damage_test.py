@@ -47,5 +47,5 @@ def test_phantom_guard():
     guard = ObservablePhantomGuard(owner)
     guard.listen(event)
     damage = Damage(100)
-    event.emit('damage_defender', None, owner, damage)
+    event.emit(DamageDefender, None, owner, damage)
     assert damage == 50

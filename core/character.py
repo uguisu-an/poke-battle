@@ -1,5 +1,6 @@
 from collections import namedtuple
 from core.effect.weather import Sunny
+from core.event import *
 
 
 Character = namedtuple('Character', 'name')
@@ -16,11 +17,6 @@ Multiscale = Character('Multiscale')
 PhantomGuard = Character('PhantomGuard')
 
 
-class EventListener:
-    def listen(self, sender):
-        pass
-
-
 class ObservableFlowerGift(EventListener):
     name = 'Flower Gift'
 
@@ -34,8 +30,8 @@ class ObservableFlowerGift(EventListener):
         self.active = False
 
     def listen(self, sender):
-        sender.on('field_initialized', self.on_field_initialized)
-        sender.on('weather_changed', self.on_weather_changed)
+        sender.on(FieldInitialized, self.on_field_initialized)
+        sender.on(WeatherChanged, self.on_weather_changed)
 
     def on_field_initialized(self, field):
         if not self.active:
@@ -60,7 +56,7 @@ class ObservableHardRock(EventListener):
         self.owner = owner
 
     def listen(self, sender):
-        sender.on('super_effective', self.on_super_effective)
+        sender.on(SuperEffective, self.on_super_effective)
 
     def on_super_effective(self, attacker, defender, damage):
         if defender == self.owner:
@@ -78,7 +74,7 @@ class ObservablePhantomGuard(EventListener):
         self.owner = owner
 
     def listen(self, sender):
-        sender.on('damage_defender', self.on_damage_defender)
+        sender.on(DamageDefender, self.on_damage_defender)
 
     def on_damage_defender(self, attacker, defender, damage):
         if defender == self.owner and defender.hp == defender.max_hp:

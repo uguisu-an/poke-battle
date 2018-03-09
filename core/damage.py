@@ -121,7 +121,7 @@ class Damage:
         return self._damage == other
 
     def __repr__(self):
-        return self._damage
+        return str(self._damage)
 
     def __imul__(self, other):
         self._damage *= other
