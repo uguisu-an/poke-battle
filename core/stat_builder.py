@@ -33,9 +33,8 @@ class StatBuilder:
         self._partner = partner
         self._partner_character = partner.character
 
-    def build(self, base: Monster) -> Monster:
-        stat = copy(base)
-        if self._monster_character == Defeatist and base.hp.current * 2 <= base.hp.maximum:
+    def build(self, stat: Monster) -> Monster:
+        if self._monster_character == Defeatist and stat.hp.current * 2 <= stat.hp.maximum:
             stat.py_atk *= 0.5
             stat.sp_atk *= 0.5
         if self._monster_character == Plus and self._partner_character == Minus:
