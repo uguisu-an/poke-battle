@@ -21,6 +21,14 @@ _type_chemistry = [
 ]
 
 
+def inverse_effect(effect):
+    if effect > 1:
+        return 0.5
+    if effect < 1:
+        return 2.0
+    return effect
+
+
 class Type:
     def __init__(self, type_id):
         self.id = type_id
@@ -28,6 +36,11 @@ class Type:
 
     def affect(self, other):
         return self.chemistry[other.id]
+
+
+class InverseType(Type):
+    def __init__(self, origin: Type):
+        Type.__init__(origin.id, [inverse_effect(e) for e in origin.chemistry])
 
 
 Normal = Type(0)
