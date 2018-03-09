@@ -1,3 +1,22 @@
+class HitPoint:
+    def __init__(self, current=None, maximum=0):
+        self.maximum = maximum
+        self.current = current or maximum
+
+    def __eq__(self, other):
+        return self.current == other
+
+    @property
+    def full(self) -> bool:
+        return self.current == self.maximum
+
+    def gain(self, point: int):
+        self.current = min(self.current + point, self.maximum)
+
+    def lose(self, point: int):
+        self.current = max(self.current - point, 0)
+
+
 class Stat:
     def __init__(self, degree):
         self._degree = degree
