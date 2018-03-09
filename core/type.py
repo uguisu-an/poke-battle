@@ -40,7 +40,8 @@ class Type:
 
 class InverseType(Type):
     def __init__(self, origin: Type):
-        Type.__init__(origin.id, [inverse_effect(e) for e in origin.chemistry])
+        Type.__init__(self, origin.id)
+        self.chemistry = [inverse_effect(e) for e in self.chemistry]
 
 
 Normal = Type(0)
