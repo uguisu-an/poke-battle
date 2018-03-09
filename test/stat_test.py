@@ -39,13 +39,13 @@ def test_rank_down_limit():
 
 # ごちゃごちゃしてる
 def test_defeatist():
-    base = MonsterStat(hp=100, max_hp=100, py_atk=20, sp_atk=30)
+    base = Monster(hp=100, py_atk=20, sp_atk=30)
     builder = StatBuilder()
     builder.add_character(Defeatist)
     stat = builder.build(base)
     assert stat.py_atk == 20
     assert stat.sp_atk == 30
-    base.hp = 50
+    base.hp.lose(50)
     builder.add_character(Defeatist)
     stat = builder.build(base)
     assert stat.py_atk == 10
@@ -58,7 +58,7 @@ def test_plus_and_minus():
     a.character = Plus
     b = Monster()
     b.character = Minus
-    base = MonsterStat(sp_atk=50)
+    base = Monster(sp_atk=50)
     builder = StatBuilder()
     builder.add_monster(a)
     stat = builder.build(base)
@@ -75,9 +75,26 @@ def test_thick_club():
     cubone.item = ThickClub
     builder = StatBuilder()
     builder.add_monster(cubone)
-    stat = builder.build(MonsterStat(py_atk=50))
+    stat = builder.build(Monster(py_atk=50))
     assert stat.py_atk == 100
     builder.add_monster(other)
-    stat = builder.build(MonsterStat(py_atk=50))
+    stat = builder.build(Monster(py_atk=50))
     assert stat.py_atk == 50
 
+
+def test_hp_gain_and_lose():
+    hp = HitPoint(maximum=100)
+    assert hp == 100
+    hp.lose(50)
+    assert hp == 50
+    hp.lose(100)
+    assert hp == 0
+    hp.gain(150)
+    assert hp == 100
+
+
+def test_hp_full():
+    hp = HitPoint(maximum=100)
+    assert hp.full
+    hp.lose(1)
+    assert not hp.full
