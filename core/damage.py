@@ -35,6 +35,7 @@ class DamageCalculator:
     defender = None
     defender_item = None
     defender_character = None
+    critical = False
 
     def __init__(self, move, attacker, defender):
         self.move: Attack = move
@@ -66,6 +67,9 @@ class DamageCalculator:
     def add_defender_character(self, character):
         self.defender_character = character
 
+    def set_critical(self, critical):
+        self.critical = critical
+
     def calc_base_damage(self):
         return base_damage(self.move.power, self.calc_attack_defence_ratio())
 
@@ -78,8 +82,27 @@ class DamageCalculator:
         return 1.0
 
     def calc_character_bonus(self):
+        return self.calc_attacker_character_bonus() * self.calc_defender_character_bonus()
+
+    def calc_attacker_character_bonus(self):
         if self.attacker_character == BrainForce and self.move.type_match_up(self.defender.type) > 1:
             return 1.2
+        if self.attacker_character == TintedLens and self.move.type_match_up(self.defender.type) < 1:
+            return 2.0
+        if self.attacker_character == Sniper and self.critical:
+            return 1.5
+        return 1.0
+
+    def calc_defender_character_bonus(self):
+        if self.defender_character in {HardRock, Filter} and self.move.type_match_up(self.defender.type) > 1:
+            return 0.75
+        if self.defender_character in {Multiscale, PhantomGuard} and self.attacker.hp == self.attacker.max_hp:
+            return 0.5
+        return 1.0
+
+    def calc_critical_bonus(self):
+        if self.critical:
+            return 2.0
         return 1.0
 
     def calc(self):
@@ -89,4 +112,5 @@ class DamageCalculator:
         damage = damage * self.move.type_match_up(self.defender.type)
         damage = damage * self.calc_item_bonus()
         damage = damage * self.calc_character_bonus()
+        damage = damage * self.calc_critical_bonus()
         return damage
