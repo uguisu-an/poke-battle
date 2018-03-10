@@ -259,6 +259,8 @@ def _affected_at_type():
     at = set(at_type.copy())
     if at_with_trick_or_treat:
         at.add(Type.Ghost)
+    if at_with_forests_curse:
+        at.add(Type.Grass)
     return at
 
 
@@ -266,6 +268,8 @@ def _affected_df_type():
     dt = set(df_type.copy())
     if df_with_trick_or_treat:
         dt.add(Type.Ghost)
+    if df_with_forests_curse:
+        dt.add(Type.Grass)
     return dt
 
 

@@ -137,6 +137,14 @@ def test_trick_or_treat():
     assert d2.calc() == 131
 
 
+def test_forests_curse():
+    d2.mv_type = d2.Type.Grass
+    d2.at_with_forests_curse = True
+    assert d2.calc() == 65
+    d2.df_with_forests_curse = True
+    assert d2.calc() == 32
+
+
 def test_flower_gift():
     d2.at_with_flower_gift = True
     d2.mv_form = d2.MoveForm.Physical
