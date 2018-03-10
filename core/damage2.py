@@ -66,6 +66,7 @@ terrain: Terrain = Terrain.Common
 other_effect = {}
 
 gravity = False
+ion_deluge = False
 
 type_table = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 0, 1, 1, 0.5, 0],
@@ -162,13 +163,20 @@ def _affected_type_table():
     return table
 
 
+def _affected_move_type():
+    if ion_deluge and mv_type == Type.Normal:
+        return Type.Electric
+    return mv_type
+
+
 def _type_effect():
     tt = _affected_type_table()
+    mt = _affected_move_type()
     e = 1.0
     for t in df_type:
         if t is None:
             continue
-        e *= tt[mv_type.value][t.value]
+        e *= tt[mt.value][t.value]
     return e
 
 

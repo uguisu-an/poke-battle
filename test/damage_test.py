@@ -71,3 +71,13 @@ def test_electric_terrain():
     assert d2.calc() == 81
     d2.at_type = {d2.Type.Flying}
     assert d2.calc() == 54
+
+
+def test_ion_deluge():
+    d2.ion_deluge = True
+    d2.mv_type = d2.Type.Normal
+    d2.df_type = {d2.Type.Ground}
+    assert d2.calc() == 0
+    d2.df_type = {d2.Type.Water, d2.Type.Flying}
+    assert d2.calc() == 219
+
