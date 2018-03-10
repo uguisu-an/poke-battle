@@ -1,7 +1,7 @@
 import math
 import enum
 from typing import Set
-from copy import copy, deepcopy
+from copy import deepcopy
 
 
 class Type(enum.Enum):
@@ -142,7 +142,7 @@ def _base_damage():
 
 
 def _affected_power():
-    mt = _affected_move_type()
+    mt = _affected_mv_type()
     bonus = 1.0
     bonus *= _terrain_bonus()
     if at_with_helping_hand:
@@ -156,7 +156,7 @@ def _affected_power():
 
 # TODO: 浮遊に対応する
 def _terrain_bonus():
-    mt = _affected_move_type()
+    mt = _affected_mv_type()
     if Type.Flying not in at_type:
         if terrain == Terrain.Electric and mt == Type.Electric:
             return 1.5
@@ -233,7 +233,7 @@ def _inverse_type_table_cell(type_effect):
     return 1.0
 
 
-def _affected_move_type():
+def _affected_mv_type():
     if at_with_electrify:
         return Type.Electric
     if ion_deluge and mv_type == Type.Normal:
@@ -257,7 +257,7 @@ def _affected_df_type():
 
 def _type_effect():
     tt = _affected_type_table()
-    mt = _affected_move_type()
+    mt = _affected_mv_type()
     dt = _affected_df_type()
     e = 1.0
     for t in dt:
