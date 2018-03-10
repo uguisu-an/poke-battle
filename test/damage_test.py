@@ -136,3 +136,11 @@ def test_trick_or_treat():
     d2.df_with_trick_or_treat = True
     assert d2.calc() == 131
 
+
+def test_flower_gift():
+    d2.at_with_flower_gift = True
+    d2.mv_form = d2.MoveForm.Physical
+    assert d2.calc() == 81
+    # 本来は特防に補正がかかるので物理技に対して効果がない
+    d2.df_with_flower_gift = True
+    assert d2.calc() == 54

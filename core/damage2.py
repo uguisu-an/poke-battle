@@ -174,16 +174,30 @@ def _ratio():
     return _at_stat_with_rank() / _df_stat_with_rank()
 
 
+def _affected_at_stat():
+    bonus = 1.0
+    if at_with_flower_gift:
+        bonus *= 1.5
+    return at_stat * bonus
+
+
+def _affected_df_stat():
+    bonus = 1.0
+    if df_with_flower_gift:
+        bonus *= 1.5
+    return df_stat * bonus
+
+
 def _at_stat_with_rank():
     if critical_hit and at_rank < 0:
-        return at_stat
-    return _stat_with_rank(at_stat, at_rank)
+        return _affected_at_stat()
+    return _stat_with_rank(_affected_at_stat(), at_rank)
 
 
 def _df_stat_with_rank():
     if critical_hit and df_rank > 0:
-        return df_stat
-    return _stat_with_rank(df_stat, df_rank)
+        return _affected_df_stat()
+    return _stat_with_rank(_affected_df_stat(), df_rank)
 
 
 def _stat_with_rank(stat, rank):
