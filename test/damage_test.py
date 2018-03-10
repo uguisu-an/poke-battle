@@ -1,51 +1,28 @@
-import core.type as t
-from core.move import *
-from core.level import Level
-from core.damage import *
-from core.event import *
+from importlib import reload
+import core.damage2 as d2
+
+
+def setup():
+    reload(d2)
 
 
 def test_base_damage():
-    assert base_damage(120, 1.0) == 122
-    assert base_damage(120, 2.0) == 242
+    d2.mv_power = 120
+    assert d2.calc() == 54
+    d2.at_stat = 150
+    d2.df_stat = 50
+    assert d2.calc() == 160
 
 
 def test_type_match():
-    move = Attack()
-    move.type = t.Normal
-    assert move.type_match(t.Normal)
-    assert not move.type_match(t.Dragon)
+    d2.mv_power = 120
+    d2.mv_type = d2.Type.Normal
+    d2.at_type = {d2.Type.Fire, d2.Type.Normal}
+    assert d2.calc() == 65
 
 
-def test_type_match_up():
-    move = Attack()
-    move.type = t.Ground
-    assert move.type_match_up(t.Fire, t.Flying) == 0
-    assert move.type_match_up(t.Fire, t.Grass) == 1.0
-    assert move.type_match_up(t.Fire, t.Electric) == 4.0
-
-
-def test_randomized_damage():
-    assert randomized(100, randomizer=minimizer) == 85
-    assert randomized(100, randomizer=maximizer) == 100
-
-
-def test_damage_calculator():
-    move = PhysicalAttack()
-    move.type = t.Normal
-    move.power = 120
-    attacker = Monster(py_atk=200, level=50)
-    defender = Monster(py_def=150)
-    damage = DamageCalculator(move, attacker, defender)
-    damage.add_randomizer(maximizer)
-    assert damage.calc() == 86
-
-
-def test_phantom_guard():
-    event = EventEmitter()
-    owner = Monster(hp=50, max_hp=50)
-    guard = ObservablePhantomGuard(owner)
-    guard.listen(event)
-    damage = Damage(100)
-    event.emit(DamageDefender, None, owner, damage)
-    assert damage == 50
+def test_type_effect():
+    d2.mv_power = 120
+    d2.mv_type = d2.Type.Dragon
+    d2.df_type = {d2.Type.Dragon, d2.Type.Fairy}
+    assert d2.calc() == 0

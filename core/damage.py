@@ -71,8 +71,6 @@ class DamageCalculator:
             return 1.3
         if self.attacker_item == ExpertBelt:
             return 1.2
-        return 1.0
-
     def _calc_defender_item_bonus(self):
         if self.defender_item == Berry:
             return 0.5
