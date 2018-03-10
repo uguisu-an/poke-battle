@@ -329,6 +329,10 @@ def _other_bonus():
         bonus *= 0.5
     if df_with_reflect and mv_form == MoveForm.Physical:
         bonus *= 0.5
+    if df_with_protect:
+        bonus *= 0
+    if df_with_friend_guard:
+        bonus *= 0.75
     return bonus
 
 
