@@ -42,3 +42,14 @@ def test_rank_bonus():
     d2.at_rank = 1
     d2.df_rank = -2
     assert d2.calc() == 160
+
+
+def test_critical_effect():
+    d2.critical_hit = True
+    d2.at_rank = -1
+    d2.df_rank = 1
+    assert d2.calc() == 82
+    d2.at_rank = 1
+    assert d2.calc() == 121
+    d2.df_rank = -2
+    assert d2.calc() == 240

@@ -51,6 +51,7 @@ df_type: Set[Type] = {}
 df_item = None
 df_ability = None
 
+critical_hit = False
 weather: Weather = Weather.Calm
 field = {}
 other_effect = {}
@@ -82,6 +83,7 @@ def calc():
     damage *= _type_match()
     damage *= _type_effect()
     damage *= _weather_effect()
+    damage *= _critical_bonus()
     return math.floor(damage)
 
 
@@ -90,7 +92,19 @@ def _base_damage():
 
 
 def _ratio():
-    return _stat_with_rank(at_stat, at_rank) / _stat_with_rank(df_stat, df_rank)
+    return _at_stat_with_rank() / _df_stat_with_rank()
+
+
+def _at_stat_with_rank():
+    if critical_hit and at_rank < 0:
+        return at_stat
+    return _stat_with_rank(at_stat, at_rank)
+
+
+def _df_stat_with_rank():
+    if critical_hit and df_rank > 0:
+        return df_stat
+    return _stat_with_rank(df_stat, df_rank)
 
 
 def _stat_with_rank(stat, rank):
@@ -122,6 +136,12 @@ def _type_effect():
             continue
         e *= type_table[mv_type.value][t.value]
     return e
+
+
+def _critical_bonus():
+    if critical_hit:
+        return 1.5
+    return 1.0
 
 
 def _weather_effect():
