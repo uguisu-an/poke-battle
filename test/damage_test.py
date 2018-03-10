@@ -2,6 +2,7 @@ from importlib import reload
 import core.damage2 as d2
 
 
+STANDARD = 54
 SUPER_EFFECT_2 = 109
 SUPER_EFFECT_4 = 219
 
@@ -11,7 +12,7 @@ def setup():
 
 
 def test_default_setup():
-    assert d2.calc() == 54
+    assert d2.calc() == STANDARD
 
 
 def test_base_damage():
@@ -64,7 +65,7 @@ def test_gravity():
     d2.df_type = {d2.Type.Flying}
     assert d2.calc() == 0
     d2.gravity = True
-    assert d2.calc() == 54
+    assert d2.calc() == STANDARD
     d2.gravity = False
     assert d2.calc() == 0
 
@@ -74,7 +75,7 @@ def test_electric_terrain():
     d2.terrain = d2.Terrain.Electric
     assert d2.calc() == 81
     d2.at_type = {d2.Type.Flying}
-    assert d2.calc() == 54
+    assert d2.calc() == STANDARD
 
 
 def test_ion_deluge():
@@ -93,5 +94,4 @@ def test_inverse_battle():
     assert d2.calc() == SUPER_EFFECT_2
     # 重力と複合した場合は地面：飛行が等倍になる（重力が先に反映される）
     d2.gravity = True
-    assert d2.calc() == 54
-
+    assert d2.calc() == STANDARD
