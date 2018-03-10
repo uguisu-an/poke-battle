@@ -24,7 +24,7 @@ class Type(enum.Enum):
     Fairy = 17
 
 
-mv_power = 100
+mv_power = 120
 mv_level = 50
 mv_type: Type = Type.Normal
 
