@@ -42,12 +42,18 @@ mv_type: Type = Type.Normal
 at_stat = 100
 at_rank = 0
 at_type: Set[Type] = {}
+at_item = None
+at_ability = None
 
 df_stat = 100
 df_rank = 0
 df_type: Set[Type] = {}
+df_item = None
+df_ability = None
 
 weather: Weather = Weather.Calm
+field = {}
+other_effect = {}
 
 type_table = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 0, 1, 1, 0.5, 0],
