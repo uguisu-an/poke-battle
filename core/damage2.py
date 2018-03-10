@@ -132,6 +132,7 @@ def calc():
     damage *= _type_effect()
     damage *= _weather_effect()
     damage *= _critical_bonus()
+    damage *= _other_bonus()
     return math.floor(damage)
 
 
@@ -276,6 +277,16 @@ def _weather_effect():
         if mv_type == Type.Water:
             return 1.5
     return 1.0
+
+
+def _other_bonus():
+    bonus = 1.0
+    # 先制した時だけ、相手の攻撃技で
+    if at_with_me_first:
+        bonus *= 1.5
+    if at_with_burn and mv_form == MoveForm.Physical:
+        bonus *= 0.5
+    return bonus
 
 
 # TODO: ワンダールームはこの計算機の外、Monsterを生成する段階で作用する

@@ -114,3 +114,16 @@ def test_battery():
     assert d2.calc() == 54
     d2.mv_form = d2.MoveForm.Special
     assert d2.calc() == 70
+
+
+def test_me_first():
+    d2.at_with_me_first = True
+    assert d2.calc() == 82
+
+
+def test_burn():
+    d2.at_with_burn = True
+    d2.mv_form = d2.MoveForm.Physical
+    assert d2.calc() == 27
+    d2.mv_form = d2.MoveForm.Special
+    assert d2.calc() == 54
