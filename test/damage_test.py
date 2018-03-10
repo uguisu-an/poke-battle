@@ -103,7 +103,7 @@ def test_helping_hand():
 
 
 def test_charge():
-    d2.mv_type = d2.Type.Electric
+    d2.at_with_electrify = True
     d2.at_with_charge = True
     assert d2.calc() == 107
 

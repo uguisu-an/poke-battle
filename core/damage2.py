@@ -104,6 +104,7 @@ gravity = False
 ion_deluge = False
 inverse_battle = False
 
+# TODO: Typeで直接取れるようにする
 type_table = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 0, 1, 1, 0.5, 0],
     [1, 0.5, 0.5, 1, 2, 2, 1, 1, 1, 1, 1, 2, 0.5, 1, 0.5, 1, 2, 1],
@@ -141,11 +142,12 @@ def _base_damage():
 
 
 def _affected_power():
+    mt = _affected_move_type()
     bonus = 1.0
     bonus *= _terrain_bonus()
     if at_with_helping_hand:
         bonus *= 1.5
-    if at_with_charge and mv_type == Type.Electric:
+    if at_with_charge and mt == Type.Electric:
         bonus *= 2.0
     if at_with_battery and mv_form == MoveForm.Special:
         bonus *= 1.3
@@ -154,15 +156,16 @@ def _affected_power():
 
 # TODO: 浮遊に対応する
 def _terrain_bonus():
+    mt = _affected_move_type()
     if Type.Flying not in at_type:
-        if terrain == Terrain.Electric and mv_type == Type.Electric:
+        if terrain == Terrain.Electric and mt == Type.Electric:
             return 1.5
-        if terrain == Terrain.Mist and mv_type == Type.Dragon:
+        if terrain == Terrain.Mist and mt == Type.Dragon:
             return 0.5
-        if terrain == Terrain.Grass and mv_type == Type.Grass:
+        if terrain == Terrain.Grass and mt == Type.Grass:
             # TODO: Earthquake, Bulldoze, Magnitude * 0.5
             return 1.5
-        if terrain == Terrain.Psychic and mv_type == Type.Psychic:
+        if terrain == Terrain.Psychic and mt == Type.Psychic:
             return 1.5
     return 1.0
 
@@ -231,6 +234,8 @@ def _inverse_type_table_cell(type_effect):
 
 
 def _affected_move_type():
+    if at_with_electrify:
+        return Type.Electric
     if ion_deluge and mv_type == Type.Normal:
         return Type.Electric
     return mv_type
