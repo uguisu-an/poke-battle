@@ -151,6 +151,10 @@ def _affected_power():
         bonus *= 2.0
     if at_with_battery and mv_form == MoveForm.Special:
         bonus *= 1.3
+    if df_with_water_sport and mt == Type.Fire:
+        bonus *= 1/3
+    if df_with_mud_sport and mt == Type.Electric:
+        bonus *= 1/3
     return mv_power * bonus
 
 

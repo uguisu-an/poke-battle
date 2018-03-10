@@ -191,3 +191,11 @@ def test_miracle_eye():
     d2.mv_type = d2.Type.Psychic
     d2.df_type = {d2.Type.Dark}
     assert d2.calc() == 54
+
+
+def test_water_sport():
+    d2.df_with_water_sport = True
+    assert d2.calc() == 54
+    d2.mv_type = d2.Type.Fire
+    assert d2.calc() == 19
+
