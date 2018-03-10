@@ -49,6 +49,14 @@ class Terrain(enum.Enum):
     Psychic = 4
 
 
+class Ability(enum.Enum):
+    Nothing = 0
+
+
+class Item(enum.Enum):
+    Nothing = 0
+
+
 mv_power = 120
 mv_level = 50
 # TODO: ノーマルスキン＋プラズマシャワー＋フライングプレスで複合タイプになることがある
@@ -58,8 +66,8 @@ mv_form: MoveForm = MoveForm.Physical
 at_stat = 100
 at_rank = 0
 at_type: Set[Type] = {}
-at_item = None
-at_ability = None
+at_item: Item = Item.Nothing
+at_ability: Ability = Ability.Nothing
 
 # 補助技
 at_with_helping_hand = False
@@ -77,8 +85,8 @@ at_with_flower_gift = False
 df_stat = 100
 df_rank = 0
 df_type: Set[Type] = {}
-df_item = None
-df_ability = None
+df_item: Item = Item.Nothing
+df_ability: Ability = Ability.Nothing
 
 # 補助技
 df_with_reflect = False
