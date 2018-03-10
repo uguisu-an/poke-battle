@@ -152,3 +152,19 @@ def test_flower_gift():
     # 本来は特防に補正がかかるので物理技に対して効果がない
     d2.df_with_flower_gift = True
     assert d2.calc() == 54
+
+
+def test_reflect():
+    d2.df_with_reflect = True
+    d2.mv_form = d2.MoveForm.Physical
+    assert d2.calc() == 27
+    d2.mv_form = d2.MoveForm.Special
+    assert d2.calc() == 54
+
+
+def test_light_screen():
+    d2.df_with_light_screen = True
+    d2.mv_form = d2.MoveForm.Physical
+    assert d2.calc() == 54
+    d2.mv_form = d2.MoveForm.Special
+    assert d2.calc() == 27
