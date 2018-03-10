@@ -1,6 +1,7 @@
 import math
 import enum
 from typing import Set
+from copy import deepcopy
 
 
 class Type(enum.Enum):
@@ -55,6 +56,8 @@ critical_hit = False
 weather: Weather = Weather.Calm
 field = {}
 other_effect = {}
+
+gravity = False
 
 type_table = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 0, 1, 1, 0.5, 0],
@@ -129,12 +132,20 @@ def _type_match():
     return 1.0
 
 
+def _affected_type_table():
+    table = deepcopy(type_table)
+    if gravity:
+        table[Type.Ground.value][Type.Flying.value] = 1.0
+    return table
+
+
 def _type_effect():
+    tt = _affected_type_table()
     e = 1.0
     for t in df_type:
         if t is None:
             continue
-        e *= type_table[mv_type.value][t.value]
+        e *= tt[mv_type.value][t.value]
     return e
 
 

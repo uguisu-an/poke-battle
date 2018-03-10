@@ -53,3 +53,13 @@ def test_critical_effect():
     assert d2.calc() == 121
     d2.df_rank = -2
     assert d2.calc() == 240
+
+
+def test_gravity():
+    d2.mv_type = d2.Type.Ground
+    d2.df_type = {d2.Type.Flying}
+    assert d2.calc() == 0
+    d2.gravity = True
+    assert d2.calc() == 54
+    d2.gravity = False
+    assert d2.calc() == 0
