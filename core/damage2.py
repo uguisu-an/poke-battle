@@ -46,6 +46,7 @@ class Terrain(enum.Enum):
 
 mv_power = 120
 mv_level = 50
+# TODO: ノーマルスキン＋プラズマシャワー＋フライングプレスで複合タイプになることがある
 mv_type: Type = Type.Normal
 
 at_stat = 100
@@ -67,6 +68,7 @@ other_effect = {}
 
 gravity = False
 ion_deluge = False
+inverse_battle = False
 
 type_table = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 0, 1, 1, 0.5, 0],
@@ -160,7 +162,25 @@ def _affected_type_table():
     table = deepcopy(type_table)
     if gravity:
         table[Type.Ground.value][Type.Flying.value] = 1.0
+    if inverse_battle:
+        return _inverse_type_table(table)
     return table
+
+
+def _inverse_type_table(type_table_copy):
+    return list(map(_inverse_type_table_row, type_table_copy))
+
+
+def _inverse_type_table_row(row):
+    return list(map(_inverse_type_table_cell, row))
+
+
+def _inverse_type_table_cell(type_effect):
+    if type_effect > 1:
+        return 0.5
+    if type_effect < 1:
+        return 2.0
+    return 1.0
 
 
 def _affected_move_type():
@@ -210,3 +230,6 @@ def _weather_effect():
         if mv_type == Type.Water:
             return 1.5
     return 1.0
+
+
+# TODO: ワンダールームはこの計算機の外、Monsterを生成する段階で作用する

@@ -2,6 +2,10 @@ from importlib import reload
 import core.damage2 as d2
 
 
+SUPER_EFFECT_2 = 109
+SUPER_EFFECT_4 = 219
+
+
 def setup():
     reload(d2)
 
@@ -80,4 +84,14 @@ def test_ion_deluge():
     assert d2.calc() == 0
     d2.df_type = {d2.Type.Water, d2.Type.Flying}
     assert d2.calc() == 219
+
+
+def test_inverse_battle():
+    d2.inverse_battle = True
+    d2.mv_type = d2.Type.Ground
+    d2.df_type = {d2.Type.Flying}
+    assert d2.calc() == SUPER_EFFECT_2
+    # 重力と複合した場合は地面：飛行が等倍になる（重力が先に反映される）
+    d2.gravity = True
+    assert d2.calc() == 54
 
