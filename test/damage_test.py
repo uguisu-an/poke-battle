@@ -28,3 +28,11 @@ def test_type_effect():
     d2.mv_type = d2.Type.Dragon
     d2.df_type = {d2.Type.Dragon, d2.Type.Fairy}
     assert d2.calc() == 0
+
+
+def test_weather_effect():
+    d2.weather = d2.Weather.Sunny
+    d2.mv_type = d2.Type.Water
+    assert d2.calc() == 27
+    d2.mv_type = d2.Type.Fire
+    assert d2.calc() == 82

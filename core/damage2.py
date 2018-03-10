@@ -24,6 +24,17 @@ class Type(enum.Enum):
     Fairy = 17
 
 
+class Weather(enum.Enum):
+    Calm = 0
+    Sunny = 1
+    Rainy = 2
+    Drought = 3
+    HeavyRainy = 4
+    Hailstorm = 5
+    Sandstorm = 6
+    Turbulence = 7
+
+
 mv_power = 120
 mv_level = 50
 mv_type: Type = Type.Normal
@@ -35,6 +46,8 @@ at_type: Set[Type] = {}
 df_stat = 100
 df_rank = 0
 df_type: Set[Type] = {}
+
+weather: Weather = Weather.Calm
 
 type_table = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 0, 1, 1, 0.5, 0],
@@ -59,7 +72,11 @@ type_table = [
 
 
 def calc():
-    return math.floor(_base_damage() * _type_match() * _type_effect())
+    damage = _base_damage()
+    damage *= _type_match()
+    damage *= _type_effect()
+    damage *= _weather_effect()
+    return math.floor(damage)
 
 
 def _base_damage():
@@ -87,3 +104,28 @@ def _type_effect():
             continue
         e *= type_table[mv_type.value][t.value]
     return e
+
+
+def _weather_effect():
+    # TODO: WeatherBallに対応する
+    if weather == Weather.Sunny:
+        if mv_type == Type.Water:
+            return 0.5
+        if mv_type == Type.Fire:
+            return 1.5
+    if weather == Weather.Rainy:
+        if mv_type == Type.Fire:
+            return 0.5
+        if mv_type == Type.Water:
+            return 1.5
+    if weather == Weather.Drought:
+        if mv_type == Type.Water:
+            return 0
+        if mv_type == Type.Fire:
+            return 1.5
+    if weather == Weather.HeavyRainy:
+        if mv_type == Type.Fire:
+            return 0
+        if mv_type == Type.Water:
+            return 1.5
+    return 1.0
