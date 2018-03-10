@@ -55,16 +55,44 @@ at_type: Set[Type] = {}
 at_item = None
 at_ability = None
 
+# 補助技
+at_with_helping_hand = False
+at_with_me_first = False
+at_with_electrify = False
+at_with_charge = False
+at_with_trick_or_treat = False
+at_with_forests_curse = False
+# 状態異常
+at_with_burn = False
+# 味方の特性
+at_with_battery = False
+at_with_flower_gift = False
+
 df_stat = 100
 df_rank = 0
 df_type: Set[Type] = {}
 df_item = None
 df_ability = None
 
+# 補助技
+df_with_reflect = False
+df_with_light_screen = False
+df_with_protect = False
+df_with_water_sport = False
+df_with_mud_sport = False
+df_with_foresight = False
+df_with_miracle_eye = False
+df_with_magnet_rise = False
+df_with_substitute = False
+df_with_trick_or_treat = False
+df_with_forests_curse = False
+# 味方の特性
+df_with_flower_gift = False
+df_with_friend_guard = False
+
 critical_hit = False
 weather: Weather = Weather.Calm
 terrain: Terrain = Terrain.Common
-other_effect = {}
 
 gravity = False
 ion_deluge = False
