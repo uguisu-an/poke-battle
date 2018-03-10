@@ -157,7 +157,7 @@ def _affected_power():
 # TODO: 浮遊に対応する
 def _terrain_bonus():
     mt = _affected_mv_type()
-    if Type.Flying not in at_type:
+    if Type.Flying not in _affected_at_type():
         if terrain == Terrain.Electric and mt == Type.Electric:
             return 1.5
         if terrain == Terrain.Mist and mt == Type.Dragon:
@@ -199,7 +199,7 @@ def _rank_bonus(rank):
 
 
 def _is_type_match():
-    return mv_type in _affected_at_type()
+    return _affected_mv_type() in _affected_at_type()
 
 
 def _type_match():
@@ -274,27 +274,28 @@ def _critical_bonus():
 
 
 def _weather_effect():
+    mt = _affected_mv_type()
     # TODO: WeatherBallに対応する
     # TODO: SolarBeamに対応する
     if weather == Weather.Sunny:
-        if mv_type == Type.Water:
+        if mt == Type.Water:
             return 0.5
-        if mv_type == Type.Fire:
+        if mt == Type.Fire:
             return 1.5
     if weather == Weather.Rainy:
-        if mv_type == Type.Fire:
+        if mt == Type.Fire:
             return 0.5
-        if mv_type == Type.Water:
+        if mt == Type.Water:
             return 1.5
     if weather == Weather.Drought:
-        if mv_type == Type.Water:
+        if mt == Type.Water:
             return 0
-        if mv_type == Type.Fire:
+        if mt == Type.Fire:
             return 1.5
     if weather == Weather.HeavyRainy:
-        if mv_type == Type.Fire:
+        if mt == Type.Fire:
             return 0
-        if mv_type == Type.Water:
+        if mt == Type.Water:
             return 1.5
     return 1.0
 
