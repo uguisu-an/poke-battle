@@ -1,7 +1,7 @@
 import math
 import enum
 from typing import Set
-from copy import deepcopy
+from copy import copy, deepcopy
 
 
 class Type(enum.Enum):
@@ -199,7 +199,7 @@ def _rank_bonus(rank):
 
 
 def _is_type_match():
-    return mv_type in at_type
+    return mv_type in _affected_at_type()
 
 
 def _type_match():
@@ -241,11 +241,26 @@ def _affected_move_type():
     return mv_type
 
 
+def _affected_at_type():
+    at = set(at_type.copy())
+    if at_with_trick_or_treat:
+        at.add(Type.Ghost)
+    return at
+
+
+def _affected_df_type():
+    dt = set(df_type.copy())
+    if df_with_trick_or_treat:
+        dt.add(Type.Ghost)
+    return dt
+
+
 def _type_effect():
     tt = _affected_type_table()
     mt = _affected_move_type()
+    dt = _affected_df_type()
     e = 1.0
-    for t in df_type:
+    for t in dt:
         if t is None:
             continue
         e *= tt[mt.value][t.value]

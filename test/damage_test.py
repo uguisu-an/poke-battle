@@ -127,3 +127,12 @@ def test_burn():
     assert d2.calc() == 27
     d2.mv_form = d2.MoveForm.Special
     assert d2.calc() == 54
+
+
+def test_trick_or_treat():
+    d2.mv_type = d2.Type.Ghost
+    d2.at_with_trick_or_treat = True
+    assert d2.calc() == 65
+    d2.df_with_trick_or_treat = True
+    assert d2.calc() == 131
+
