@@ -95,3 +95,22 @@ def test_inverse_battle():
     # 重力と複合した場合は地面：飛行が等倍になる（重力が先に反映される）
     d2.gravity = True
     assert d2.calc() == STANDARD
+
+
+def test_helping_hand():
+    d2.at_with_helping_hand = True
+    assert d2.calc() == 81
+
+
+def test_charge():
+    d2.mv_type = d2.Type.Electric
+    d2.at_with_charge = True
+    assert d2.calc() == 107
+
+
+def test_battery():
+    d2.at_with_battery = True
+    d2.mv_form = d2.MoveForm.Physical
+    assert d2.calc() == 54
+    d2.mv_form = d2.MoveForm.Special
+    assert d2.calc() == 70

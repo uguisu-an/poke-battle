@@ -25,6 +25,11 @@ class Type(enum.Enum):
     Fairy = 17
 
 
+class MoveForm(enum.Enum):
+    Physical = 0
+    Special = 1
+
+
 class Weather(enum.Enum):
     Calm = 0
     Sunny = 1
@@ -48,6 +53,7 @@ mv_power = 120
 mv_level = 50
 # TODO: ノーマルスキン＋プラズマシャワー＋フライングプレスで複合タイプになることがある
 mv_type: Type = Type.Normal
+mv_form: MoveForm = MoveForm.Physical
 
 at_stat = 100
 at_rank = 0
@@ -134,18 +140,30 @@ def _base_damage():
 
 
 def _affected_power():
-    # TODO: 浮遊に対応する
+    bonus = 1.0
+    bonus *= _terrain_bonus()
+    if at_with_helping_hand:
+        bonus *= 1.5
+    if at_with_charge and mv_type == Type.Electric:
+        bonus *= 2.0
+    if at_with_battery and mv_form == MoveForm.Special:
+        bonus *= 1.3
+    return mv_power * bonus
+
+
+# TODO: 浮遊に対応する
+def _terrain_bonus():
     if Type.Flying not in at_type:
         if terrain == Terrain.Electric and mv_type == Type.Electric:
-            return mv_power * 1.5
+            return 1.5
         if terrain == Terrain.Mist and mv_type == Type.Dragon:
-            return mv_power * 0.5
+            return 0.5
         if terrain == Terrain.Grass and mv_type == Type.Grass:
             # TODO: Earthquake, Bulldoze, Magnitude * 0.5
-            return mv_power * 1.5
+            return 1.5
         if terrain == Terrain.Psychic and mv_type == Type.Psychic:
-            return mv_power * 1.5
-    return mv_power
+            return 1.5
+    return 1.0
 
 
 def _ratio():
