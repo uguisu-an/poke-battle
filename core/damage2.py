@@ -36,6 +36,14 @@ class Weather(enum.Enum):
     Turbulence = 7
 
 
+class Terrain(enum.Enum):
+    Common = 0
+    Electric = 1
+    Grass = 2
+    Mist = 3
+    Psychic = 4
+
+
 mv_power = 120
 mv_level = 50
 mv_type: Type = Type.Normal
@@ -54,7 +62,7 @@ df_ability = None
 
 critical_hit = False
 weather: Weather = Weather.Calm
-field = {}
+terrain: Terrain = Terrain.Common
 other_effect = {}
 
 gravity = False
@@ -91,7 +99,22 @@ def calc():
 
 
 def _base_damage():
-    return mv_power * (mv_level+5) * _ratio() / 125 + 2
+    return _affected_power() * (mv_level+5) * _ratio() / 125 + 2
+
+
+def _affected_power():
+    # TODO: 浮遊に対応する
+    if Type.Flying not in at_type:
+        if terrain == Terrain.Electric and mv_type == Type.Electric:
+            return mv_power * 1.5
+        if terrain == Terrain.Mist and mv_type == Type.Dragon:
+            return mv_power * 0.5
+        if terrain == Terrain.Grass and mv_type == Type.Grass:
+            # TODO: Earthquake, Bulldoze, Magnitude * 0.5
+            return mv_power * 1.5
+        if terrain == Terrain.Psychic and mv_type == Type.Psychic:
+            return mv_power * 1.5
+    return mv_power
 
 
 def _ratio():
@@ -157,6 +180,7 @@ def _critical_bonus():
 
 def _weather_effect():
     # TODO: WeatherBallに対応する
+    # TODO: SolarBeamに対応する
     if weather == Weather.Sunny:
         if mv_type == Type.Water:
             return 0.5

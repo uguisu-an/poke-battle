@@ -63,3 +63,11 @@ def test_gravity():
     assert d2.calc() == 54
     d2.gravity = False
     assert d2.calc() == 0
+
+
+def test_electric_terrain():
+    d2.mv_type = d2.Type.Electric
+    d2.terrain = d2.Terrain.Electric
+    assert d2.calc() == 81
+    d2.at_type = {d2.Type.Flying}
+    assert d2.calc() == 54
