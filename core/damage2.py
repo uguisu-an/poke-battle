@@ -225,7 +225,15 @@ def _type_match():
 def _affected_type_table():
     table = deepcopy(type_table)
     if gravity:
+        # じゅうりょくはさかさバトルに先立つ
         table[Type.Ground.value][Type.Flying.value] = 1.0
+    if df_with_foresight:
+        # TODO: さかさバトルの影響は？
+        table[Type.Normal.value][Type.Ghost.value] = 1.0
+        table[Type.Fighting.value][Type.Ghost.value] = 1.0
+    if df_with_miracle_eye:
+        # TODO: さかさバトルの影響は？
+        table[Type.Psychic.value][Type.Dark.value] = 1.0
     if inverse_battle:
         return _inverse_type_table(table)
     return table
@@ -277,6 +285,8 @@ def _type_effect():
     tt = _affected_type_table()
     mt = _affected_mv_type()
     dt = _affected_df_type()
+    if df_with_magnet_rise and not gravity and mt == Type.Ground:
+        return 0
     e = 1.0
     for t in dt:
         if t is None:

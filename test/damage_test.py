@@ -168,3 +168,26 @@ def test_light_screen():
     assert d2.calc() == 54
     d2.mv_form = d2.MoveForm.Special
     assert d2.calc() == 27
+
+
+def test_foresight():
+    d2.mv_type = d2.Type.Fighting
+    d2.df_type = {d2.Type.Ghost}
+    assert d2.calc() == 0
+    d2.df_with_foresight = True
+    assert d2.calc() == 54
+
+
+def test_magnet_rise():
+    d2.df_with_magnet_rise = True
+    d2.mv_type = d2.Type.Ground
+    assert d2.calc() == 0
+    d2.gravity = True
+    assert d2.calc() == 54
+
+
+def test_miracle_eye():
+    d2.df_with_miracle_eye = True
+    d2.mv_type = d2.Type.Psychic
+    d2.df_type = {d2.Type.Dark}
+    assert d2.calc() == 54
