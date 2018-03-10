@@ -36,3 +36,9 @@ def test_weather_effect():
     assert d2.calc() == 27
     d2.mv_type = d2.Type.Fire
     assert d2.calc() == 82
+
+
+def test_rank_bonus():
+    d2.at_rank = 1
+    d2.df_rank = -2
+    assert d2.calc() == 160

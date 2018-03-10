@@ -90,7 +90,19 @@ def _base_damage():
 
 
 def _ratio():
-    return at_stat / df_stat
+    return _stat_with_rank(at_stat, at_rank) / _stat_with_rank(df_stat, df_rank)
+
+
+def _stat_with_rank(stat, rank):
+    return stat * _rank_bonus(rank)
+
+
+def _rank_bonus(rank):
+    if rank > 0:
+        return (rank + 2) / 2
+    if rank < 0:
+        return 2 / (-rank + 2)
+    return 2 / 2
 
 
 def _is_type_match():
