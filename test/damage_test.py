@@ -12,6 +12,8 @@ def test_base_damage():
     d2.at_stat = 150
     d2.df_stat = 50
     assert d2.calc() == 160
+    d2.mv_level = 1
+    assert d2.calc() == 19
 
 
 def test_type_match():
