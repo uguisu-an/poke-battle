@@ -89,7 +89,6 @@ df_with_mud_sport = False
 df_with_foresight = False
 df_with_miracle_eye = False
 df_with_magnet_rise = False
-df_with_substitute = False
 df_with_trick_or_treat = False
 df_with_forests_curse = False
 # 味方の特性

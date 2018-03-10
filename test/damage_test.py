@@ -198,4 +198,3 @@ def test_water_sport():
     assert d2.calc() == 54
     d2.mv_type = d2.Type.Fire
     assert d2.calc() == 19
-
