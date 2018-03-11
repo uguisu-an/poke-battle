@@ -284,3 +284,9 @@ def test_water_bubble_for_defender():
     d2.mv_type = d2.Type.Fire
     d2.df_ability = d2.Ability.WaterBubble
     assert d2.calc() == 28
+
+
+def test_reckless():
+    d2.at_ability = d2.Ability.Reckless
+    d2.mv_reckless = True
+    assert d2.calc() == 65

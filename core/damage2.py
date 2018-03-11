@@ -74,7 +74,7 @@ class Ability(enum.Enum):
     Overgrow = 14
     WaterBubble = 15
     SkySkin = 16
-    SkillLink = 17
+    # SkillLink = 17  連続技が5回になるのは個々のダメージに影響しない
     Reckless = 18
     SandForce = 19
     Infiltrator = 20
@@ -106,10 +106,13 @@ class Item(enum.Enum):
 mv_power = 120
 mv_level = 50
 # TODO: ノーマルスキン＋プラズマシャワー＋フライングプレスで複合タイプになることがある
+# フライングプレスを格闘が加わる飛行技と考えれば、特製の処理で対処できそう
 mv_type: Type = Type.Normal
 mv_form: MoveForm = MoveForm.Physical
 mv_style = MoveStyle.Other
 mv_direct = False
+# 自分の攻撃でダメージを負うかどうか
+mv_reckless = False
 
 at_stat = 100
 at_rank = 0
@@ -239,6 +242,8 @@ def _affected_power():
         bonus *= 1.5
     if at_ability == Ability.WaterBubble and _affected_mv_type() == Type.Water:
         bonus *= 2.0
+    if at_ability == Ability.Reckless and mv_reckless:
+        bonus *= 1.2
     if df_ability == Ability.WaterBubble and _affected_mv_type() == Type.Fire:
         bonus *= 0.5
     # ここまで
