@@ -106,6 +106,10 @@ class Ability(enum.Enum):
     Forecast = 40
     Unaware = 41
     Rivalry = 42
+    ToxicBoost = 43
+    FlareBoost = 44
+    Steelworker = 45
+    BrainForce = 46
 
 
 class Item(enum.Enum):
@@ -264,10 +268,15 @@ def _affected_power():
         bonus *= 1.3
     if at_ability == Ability.HugePower and mv_form == MoveForm.Physical:
         bonus *= 2.0
+    if at_ability == Ability.ToxicBoost and mv_form == MoveForm.Physical:
+        # どく状態のとき
+        bonus *= 1.5
     if at_ability == Ability.Technician and mv_power <= 60:
         bonus *= 1.5
     if df_ability == Ability.WaterBubble and _affected_mv_type() == Type.Fire:
         bonus *= 0.5
+    if at_ability == Ability.Steelworker and mt == Type.Steel:
+        bonus *= 1.5
     if at_ability == Ability.Rivalry and at_sex != Sex.Unknown:
         if at_sex == df_sex:
             bonus *= 1.25
@@ -341,6 +350,10 @@ def _affected_at_stat():
         # 攻撃のみ（素早さも）
         # 場に出てから５ターンの間
         bonus *= 0.5
+    if at_ability == Ability.FlareBoost:
+        # 特攻のみ
+        # やけど状態のとき
+        bonus *= 1.5
     return at_stat * bonus
 
 
@@ -548,6 +561,8 @@ def _other_bonus():
         bonus *= 0.75
     if at_ability == Ability.TintedLens and _type_effect() < 1:
         bonus *= 2.0
+    if at_ability == Ability.BrainForce and _type_effect() > 1:
+        bonus *= 1.2
     return bonus
 
 

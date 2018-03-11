@@ -362,3 +362,10 @@ def test_rivalry():
     assert d2.calc() == 68
     d2.df_sex = d2.Sex.Female
     assert d2.calc() == 41
+
+
+def test_brain_force():
+    d2.at_ability = d2.Ability.BrainForce
+    d2.mv_type = d2.Type.Bug
+    d2.df_type = {d2.Type.Grass}
+    assert d2.calc() == 131
