@@ -297,3 +297,10 @@ def test_sand_force():
     d2.mv_type = d2.Type.Rock
     d2.weather = d2.Weather.Sandstorm
     assert d2.calc() == 70
+
+
+def test_infiltrator():
+    d2.at_ability = d2.Ability.Infiltrator
+    d2.df_with_reflect = True
+    d2.df_with_light_screen = True
+    assert d2.calc() == STANDARD

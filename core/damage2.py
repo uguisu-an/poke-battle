@@ -497,9 +497,9 @@ def _other_bonus():
         bonus *= 1.5
     if at_with_burn and mv_form == MoveForm.Physical:
         bonus *= 0.5
-    if df_with_light_screen and mv_form == MoveForm.Special:
+    if df_with_light_screen and mv_form == MoveForm.Special and at_ability != Ability.Infiltrator:
         bonus *= 0.5
-    if df_with_reflect and mv_form == MoveForm.Physical:
+    if df_with_reflect and mv_form == MoveForm.Physical and at_ability != Ability.Infiltrator:
         bonus *= 0.5
     if df_with_protect:
         bonus *= 0
