@@ -112,6 +112,7 @@ class Ability(enum.Enum):
     BrainForce = 46
     Plus = 47
     Minus = 48
+    Levitate = 49
 
 
 class Item(enum.Enum):
@@ -310,7 +311,7 @@ def _aura_break():
 # 地形による補正
 def _terrain_bonus():
     mt = _affected_mv_type()
-    if Type.Flying not in _affected_at_type():
+    if Type.Flying not in _affected_at_type() and at_ability != Ability.Levitate:
         if terrain == Terrain.Electric and mt == Type.Electric:
             return 1.5
         if terrain == Terrain.Mist and mt == Type.Dragon:
