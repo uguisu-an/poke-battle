@@ -347,16 +347,14 @@ def _at_with_flower_gift():
 
 def _affected_at_stat():
     bonus = 1.0
-    # TODO: Droughtも対象？
-    if _at_with_flower_gift() and _affected_weather() == Weather.Sunny:
+    if _at_with_flower_gift() and _affected_weather() in {Weather.Sunny, Weather.Drought}:
         # 攻撃のみ
         bonus *= 1.5
     if at_ability == Ability.Guts:
         # 攻撃のみ
         # 状態異常時限定
         bonus *= 1.5
-    # TODO: Droughtも対象？
-    if at_ability == Ability.SolarPower and _affected_weather() == Weather.Sunny:
+    if at_ability == Ability.SolarPower and _affected_weather() in {Weather.Sunny, Weather.Drought}:
         # 特攻のみ
         bonus *= 1.5
     if at_ability == Ability.Hustle:
@@ -387,8 +385,7 @@ def _df_with_flower_gift():
 
 def _affected_df_stat():
     bonus = 1.0
-    # TODO: Droughtも対象？
-    if _df_with_flower_gift() and _affected_weather() == Weather.Sunny:
+    if _df_with_flower_gift() and _affected_weather() in {Weather.Sunny, Weather.Drought}:
         # 特防のみ
         bonus *= 1.5
     if df_ability == Ability.Minus and df_with_plus:
