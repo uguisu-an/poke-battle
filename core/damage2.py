@@ -57,36 +57,35 @@ class MoveStyle(enum.Enum):
     Claw = 4
 
 
-Ability = enum.Enum('Ability', '''
-Nothing
-Analyze
-TintedLens
-LiquidVoice
-AirLock
-ElectricSkin
-LongReach
-AuraBreak
-ToughClaws
-StrongJaw
-Scrappy
-Torrent
-Guts
-SolarPower
-Overgrow
-WaterBubble
-SkySkin
-SkillLink
-Reckless
-SandForce
-Infiltrator
-Sniper
-SlowStart
-DarkAura
-SheerForce
-HugePower
-Technician
-Adaptability
-''')
+class Ability(enum.Enum):
+    Nothing = 0
+    Analyze = 1
+    TintedLens = 2
+    LiquidVoice = 3
+    AirLock = 4
+    ElectricSkin = 5
+    LongReach = 6
+    AuraBreak = 7
+    ToughClaws = 8
+    StrongJaw = 9
+    Scrappy = 10
+    Torrent = 11
+    Guts = 12
+    SolarPower = 13
+    Overgrow = 14
+    WaterBubble = 15
+    SkySkin = 16
+    SkillLink = 17
+    Reckless = 18
+    SandForce = 19
+    Infiltrator = 20
+    Sniper = 21
+    SlowStart = 22
+    DarkAura = 23
+    SheerForce = 24
+    HugePower = 25
+    Technician = 26
+    Adaptability = 27
 
 
 class Item(enum.Enum):
