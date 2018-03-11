@@ -93,6 +93,7 @@ class Ability(enum.Enum):
     Normalize = 33
     IronFist = 34
     Blaze = 35
+    Swarm = 36
 
 
 class Item(enum.Enum):
@@ -218,7 +219,7 @@ def _affected_power():
         bonus *= 1.2
     if at_ability == Ability.Normalize:
         bonus *= 1.2
-    if at_ability == Ability.ToughClaws and mv_direct:
+    if at_ability == Ability.ToughClaws and _mv_direct():
         bonus *= 1.3
     if at_ability == Ability.StrongJaw and mv_style == MoveStyle.Fang:
         bonus *= 1.5
@@ -230,6 +231,8 @@ def _affected_power():
     if at_ability == Ability.Overgrow and _affected_mv_type() == Type.Grass:
         bonus *= 1.5
     if at_ability == Ability.Blaze and _affected_mv_type() == Type.Fire:
+        bonus *= 1.5
+    if at_ability == Ability.Swarm and _affected_mv_type() == Type.Bug:
         bonus *= 1.5
     # ここまで
     if (_fairy_aura() and mt == Type.Fairy) or (_dark_aura() and mt == Type.Dark):
@@ -476,6 +479,12 @@ def _other_bonus():
     if at_ability == Ability.TintedLens and _type_effect() < 1:
         bonus *= 2.0
     return bonus
+
+
+def _mv_direct():
+    if at_ability == Ability.LongReach:
+        return False
+    return mv_direct
 
 
 # TODO: ワンダールームはこの計算機の外、Monsterを生成する段階で作用する
