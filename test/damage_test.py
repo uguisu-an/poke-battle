@@ -310,3 +310,13 @@ def test_sniper():
     d2.at_ability = d2.Ability.Sniper
     d2.critical_hit = True
     assert d2.calc() == 123
+
+
+def test_technician():
+    d2.at_ability = d2.Ability.Technician
+    d2.mv_power = 60
+    assert d2.calc() == 41
+    d2.mv_power = 70
+    assert d2.calc() == 32
+    d2.mv_power = 90
+    assert d2.calc() == 41

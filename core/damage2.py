@@ -247,6 +247,14 @@ def _affected_power():
         bonus *= 1.2
     if at_ability == Ability.SandForce and _affected_weather() == Weather.Sandstorm and _affected_mv_type() in {Type.Rock, Type.Steel, Type.Ground}:
         bonus *= 1.3
+    if at_ability == Ability.SheerForce:
+        # 追加効果のある技限定
+        # 代わりに追加効果が出なくなる
+        bonus *= 1.3
+    if at_ability == Ability.HugePower and mv_form == MoveForm.Physical:
+        bonus *= 2.0
+    if at_ability == Ability.Technician and mv_power <= 60:
+        bonus *= 1.5
     if df_ability == Ability.WaterBubble and _affected_mv_type() == Type.Fire:
         bonus *= 0.5
     if (_fairy_aura() and mt == Type.Fairy) or (_dark_aura() and mt == Type.Dark):
