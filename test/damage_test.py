@@ -327,3 +327,12 @@ def test_adaptability():
     d2.at_type = {d2.Type.Normal}
     d2.mv_type = d2.Type.Normal
     assert d2.calc() == 109
+
+
+def test_forecast():
+    d2.at_ability = d2.Ability.Forecast
+    d2.weather = d2.Weather.Sunny
+    d2.mv_type = d2.Type.Fire
+    assert d2.calc() == 98
+    d2.weather = d2.Weather.Calm
+    assert d2.calc() == 54

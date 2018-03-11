@@ -97,6 +97,7 @@ class Ability(enum.Enum):
     Hustle = 37
     Stakeout = 38
     Defeatist = 39
+    Forecast = 40
 
 
 class Item(enum.Enum):
@@ -301,6 +302,7 @@ def _ratio():
 
 def _affected_at_stat():
     bonus = 1.0
+    # TODO: Droughtも対象？
     if at_with_flower_gift and _affected_weather() == Weather.Sunny:
         # 攻撃のみ
         bonus *= 1.5
@@ -308,6 +310,7 @@ def _affected_at_stat():
         # 攻撃のみ
         # 状態異常時限定
         bonus *= 1.5
+    # TODO: Droughtも対象？
     if at_ability == Ability.SolarPower and _affected_weather() == Weather.Sunny:
         # 特攻のみ
         bonus *= 1.5
@@ -328,6 +331,7 @@ def _affected_at_stat():
 
 def _affected_df_stat():
     bonus = 1.0
+    # TODO: Droughtも対象？
     if df_with_flower_gift and _affected_weather() == Weather.Sunny:
         # 特防のみ
         bonus *= 1.5
@@ -410,7 +414,6 @@ def _inverse_type_table_cell(type_effect):
 
 # 効果の影響を受けたわざタイプを得る
 def _affected_mv_type():
-    mt = mv_type
     if at_with_electrify:
         return Type.Electric
     if ion_deluge and mv_type == Type.Normal:
@@ -434,6 +437,13 @@ def _affected_mv_type():
 
 def _affected_at_type():
     at = set(at_type.copy())
+    if at_ability == Ability.Forecast:
+        if weather in {Weather.Sunny, Weather.Drought}:
+            at = {Type.Fire}
+        if weather in {Weather.Rainy, Weather.HeavyRainy}:
+            at = {Type.Water}
+        if weather in {Weather.Hailstorm}:
+            at = {Type.Ice}
     if at_with_trick_or_treat:
         at.add(Type.Ghost)
     if at_with_forests_curse:
