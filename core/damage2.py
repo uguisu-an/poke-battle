@@ -117,6 +117,7 @@ class Ability(enum.Enum):
     Protean = 50    # 永続性があるので戦闘にまとめるべきか
     MegaLauncher = 51
     YogaPower = 52
+    FlashFire = 53
 
 
 class Item(enum.Enum):
@@ -593,6 +594,9 @@ def _other_bonus():
     if at_ability == Ability.Stakeout:
         # 防御側が交代したターンのみ
         bonus *= 2.0
+    if at_ability == Ability.FlashFire and _affected_mv_type() == Type.Fire:
+        # もらいび状態のときのみ
+        bonus *= 1.5
     return bonus
 
 
