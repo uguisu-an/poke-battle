@@ -147,6 +147,7 @@ def test_forests_curse():
 
 def test_flower_gift():
     d2.at_with_flower_gift = True
+    d2.weather = d2.Weather.Sunny
     d2.mv_form = d2.MoveForm.Physical
     assert d2.calc() == 81
     # 本来は特防に補正がかかるので物理技に対して効果がない
@@ -220,3 +221,10 @@ def test_liquid_voice():
     assert d2.calc() == 54
     d2.mv_style = d2.MoveStyle.Sound
     assert d2.calc() == 109
+
+
+def test_air_lock():
+    d2.at_ability = d2.Ability.AirLock
+    d2.mv_type = d2.Type.Water
+    d2.weather = d2.Weather.Drought
+    assert d2.calc() == 54

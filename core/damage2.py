@@ -86,6 +86,7 @@ class Ability(enum.Enum):
     HugePower = 25
     Technician = 26
     Adaptability = 27
+    CloudNine = 28
 
 
 class Item(enum.Enum):
@@ -227,14 +228,14 @@ def _ratio():
 
 def _affected_at_stat():
     bonus = 1.0
-    if at_with_flower_gift:
+    if at_with_flower_gift and _affected_weather() == Weather.Sunny:
         bonus *= 1.5
     return at_stat * bonus
 
 
 def _affected_df_stat():
     bonus = 1.0
-    if df_with_flower_gift:
+    if df_with_flower_gift and _affected_weather() == Weather.Sunny:
         bonus *= 1.5
     return df_stat * bonus
 
@@ -360,26 +361,33 @@ def _critical_bonus():
     return 1.0
 
 
+def _affected_weather():
+    if at_ability in {Ability.AirLock, Ability.CloudNine}:
+        return Weather.Calm
+    return weather
+
+
 def _weather_effect():
     mt = _affected_mv_type()
+    wr = _affected_weather()
     # TODO: WeatherBallに対応する
     # TODO: SolarBeamに対応する
-    if weather == Weather.Sunny:
+    if wr == Weather.Sunny:
         if mt == Type.Water:
             return 0.5
         if mt == Type.Fire:
             return 1.5
-    if weather == Weather.Rainy:
+    if wr == Weather.Rainy:
         if mt == Type.Fire:
             return 0.5
         if mt == Type.Water:
             return 1.5
-    if weather == Weather.Drought:
+    if wr == Weather.Drought:
         if mt == Type.Water:
             return 0
         if mt == Type.Fire:
             return 1.5
-    if weather == Weather.HeavyRainy:
+    if wr == Weather.HeavyRainy:
         if mt == Type.Fire:
             return 0
         if mt == Type.Water:
