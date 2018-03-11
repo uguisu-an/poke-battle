@@ -368,6 +368,8 @@ def _is_type_match():
 # タイプ一致による補正
 def _type_match():
     if _is_type_match():
+        if at_ability == Ability.Adaptability:
+            return 2.0
         return 1.2
     return 1.0
 

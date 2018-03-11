@@ -320,3 +320,10 @@ def test_technician():
     assert d2.calc() == 32
     d2.mv_power = 90
     assert d2.calc() == 41
+
+
+def test_adaptability():
+    d2.at_ability = d2.Ability.Adaptability
+    d2.at_type = {d2.Type.Normal}
+    d2.mv_type = d2.Type.Normal
+    assert d2.calc() == 109
