@@ -4,6 +4,12 @@ from typing import Set
 from copy import deepcopy
 
 
+class Sex(enum.IntEnum):
+    Unknown = 0
+    Male = 1
+    Female = -1
+
+
 class Type(enum.IntEnum):
     Normal = 0
     Fire = 1
@@ -99,6 +105,7 @@ class Ability(enum.Enum):
     Defeatist = 39
     Forecast = 40
     Unaware = 41
+    Rivalry = 42
 
 
 class Item(enum.Enum):
@@ -119,6 +126,7 @@ mv_reckless = False
 at_stat = 100
 at_rank = 0
 at_type: Set[Type] = {}
+at_sex = Sex.Unknown
 at_item: Item = Item.Nothing
 at_ability: Ability = Ability.Nothing
 
@@ -138,6 +146,7 @@ at_with_flower_gift = False
 df_stat = 100
 df_rank = 0
 df_type: Set[Type] = {}
+df_sex = Sex.Unknown
 df_item: Item = Item.Nothing
 df_ability: Ability = Ability.Nothing
 
@@ -259,6 +268,12 @@ def _affected_power():
         bonus *= 1.5
     if df_ability == Ability.WaterBubble and _affected_mv_type() == Type.Fire:
         bonus *= 0.5
+    if at_ability == Ability.Rivalry:
+        if at_sex != Sex.Unknown:
+            if at_sex == df_sex:
+                bonus *= 1.25
+            if at_sex + df_sex == 0:
+                bonus *= 0.75
     if (_fairy_aura() and mt == Type.Fairy) or (_dark_aura() and mt == Type.Dark):
         if _aura_break():
             bonus *= 3/4

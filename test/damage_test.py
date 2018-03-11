@@ -352,3 +352,13 @@ def test_unaware_for_defender():
     assert d2.calc() == 54
     d2.df_rank = 2
     assert d2.calc() == 28
+
+
+def test_rivalry():
+    d2.at_ability = d2.Ability.Rivalry
+    assert d2.calc() == 54
+    d2.at_sex = d2.Sex.Male
+    d2.df_sex = d2.Sex.Male
+    assert d2.calc() == 68
+    d2.df_sex = d2.Sex.Female
+    assert d2.calc() == 41
