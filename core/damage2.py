@@ -50,6 +50,13 @@ class Terrain(enum.Enum):
     Psychic = 4
 
 
+class MoveStyle(enum.Enum):
+    Other = 1
+    Sound = 2
+    Jaw = 3
+    Claw = 4
+
+
 Ability = enum.Enum('Ability', '''
 Nothing
 Analyze
@@ -91,6 +98,7 @@ mv_level = 50
 # TODO: ノーマルスキン＋プラズマシャワー＋フライングプレスで複合タイプになることがある
 mv_type: Type = Type.Normal
 mv_form: MoveForm = MoveForm.Physical
+mv_style = MoveStyle.Other
 
 at_stat = 100
 at_rank = 0
@@ -310,6 +318,8 @@ def _affected_mv_type():
         return Type.Electric
     if ion_deluge and mv_type == Type.Normal:
         return Type.Electric
+    if at_ability == Ability.LiquidVoice and mv_style == MoveStyle.Sound:
+        return Type.Water
     return mv_type
 
 

@@ -212,3 +212,11 @@ def test_not_effective():
     assert d2.calc() == 13
     d2.at_ability = d2.Ability.TintedLens
     assert d2.calc() == 27
+
+
+def test_liquid_voice():
+    d2.at_ability = d2.Ability.LiquidVoice
+    d2.df_type = {d2.Type.Fire}
+    assert d2.calc() == 54
+    d2.mv_style = d2.MoveStyle.Sound
+    assert d2.calc() == 109
