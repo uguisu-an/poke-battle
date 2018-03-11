@@ -259,3 +259,9 @@ def test_tough_claws():
     d2.at_ability = d2.Ability.ToughClaws
     d2.mv_direct = True
     assert d2.calc() == 70
+
+
+def test_strong_jaw():
+    d2.at_ability = d2.Ability.StrongJaw
+    d2.mv_style = d2.MoveStyle.Fang
+    assert d2.calc() == 81

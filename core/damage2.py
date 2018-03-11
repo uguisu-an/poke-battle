@@ -52,7 +52,8 @@ class Terrain(enum.Enum):
 class MoveStyle(enum.Enum):
     Other = 1
     Sound = 2
-    Jaw = 3
+    Fang = 3
+    Fist = 4
 
 
 class Ability(enum.Enum):
@@ -90,6 +91,7 @@ class Ability(enum.Enum):
     Aerilate = 31
     Pixilate = 32
     Normalize = 33
+    IronFist = 34
 
 
 class Item(enum.Enum):
@@ -217,6 +219,10 @@ def _affected_power():
         bonus *= 1.2
     if at_ability == Ability.ToughClaws and mv_direct:
         bonus *= 1.3
+    if at_ability == Ability.StrongJaw and mv_style == MoveStyle.Fang:
+        bonus *= 1.5
+    if at_ability == Ability.IronFist and mv_style == MoveStyle.Fist:
+        bonus *= 1.2
     if (_fairy_aura() and mt == Type.Fairy) or (_dark_aura() and mt == Type.Dark):
         if _aura_break():
             bonus *= 3/4
