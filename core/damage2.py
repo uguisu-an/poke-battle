@@ -268,12 +268,11 @@ def _affected_power():
         bonus *= 1.5
     if df_ability == Ability.WaterBubble and _affected_mv_type() == Type.Fire:
         bonus *= 0.5
-    if at_ability == Ability.Rivalry:
-        if at_sex != Sex.Unknown:
-            if at_sex == df_sex:
-                bonus *= 1.25
-            if at_sex + df_sex == 0:
-                bonus *= 0.75
+    if at_ability == Ability.Rivalry and at_sex != Sex.Unknown:
+        if at_sex == df_sex:
+            bonus *= 1.25
+        if at_sex + df_sex == 0:
+            bonus *= 0.75
     if (_fairy_aura() and mt == Type.Fairy) or (_dark_aura() and mt == Type.Dark):
         if _aura_break():
             bonus *= 3/4
