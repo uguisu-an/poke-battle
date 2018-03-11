@@ -197,6 +197,7 @@ def _affected_power():
 
 
 # TODO: 浮遊に対応する
+# 地形による補正
 def _terrain_bonus():
     mt = _affected_mv_type()
     if Type.Flying not in _affected_at_type():
@@ -212,6 +213,7 @@ def _terrain_bonus():
     return 1.0
 
 
+# 攻撃値と防御値の比
 def _ratio():
     return _at_stat_with_rank() / _df_stat_with_rank()
 
@@ -230,12 +232,14 @@ def _affected_df_stat():
     return df_stat * bonus
 
 
+# ランク補正のかかった攻撃値
 def _at_stat_with_rank():
     if critical_hit and at_rank < 0:
         return _affected_at_stat()
     return _stat_with_rank(_affected_at_stat(), at_rank)
 
 
+# ランク補正のかかった防御値
 def _df_stat_with_rank():
     if critical_hit and df_rank > 0:
         return _affected_df_stat()
@@ -246,6 +250,7 @@ def _stat_with_rank(stat, rank):
     return stat * _rank_bonus(rank)
 
 
+# ランクによる補正
 def _rank_bonus(rank):
     if rank > 0:
         return (rank + 2) / 2
@@ -258,6 +263,7 @@ def _is_type_match():
     return _affected_mv_type() in _affected_at_type()
 
 
+# タイプ一致による補正
 def _type_match():
     if _is_type_match():
         return 1.2
@@ -281,6 +287,7 @@ def _affected_type_table():
     return table
 
 
+# さかさバトルの相性表に変更する
 def _inverse_type_table(type_table_copy):
     return list(map(_inverse_type_table_row, type_table_copy))
 
@@ -297,6 +304,7 @@ def _inverse_type_table_cell(type_effect):
     return 1.0
 
 
+# 効果の影響を受けたわざタイプを得る
 def _affected_mv_type():
     if at_with_electrify:
         return Type.Electric
