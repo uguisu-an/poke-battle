@@ -99,6 +99,8 @@ mv_level = 50
 mv_type: Type = Type.Normal
 mv_form: MoveForm = MoveForm.Physical
 mv_style = MoveStyle.Other
+# 直接・間接を扱うのは保留
+# mv_direct = False
 
 at_stat = 100
 at_rank = 0
@@ -147,6 +149,9 @@ terrain: Terrain = Terrain.Common
 gravity = False
 ion_deluge = False
 inverse_battle = False
+fairy_aura = False
+dark_aura = False
+aura_break = False
 
 # TODO: Typeで直接取れるようにする
 type_table = [
@@ -201,6 +206,11 @@ def _affected_power():
         bonus *= 1/3
     if at_ability == Ability.Analyze:
         bonus *= 1.3
+    if (fairy_aura and mt == Type.Fairy) or (dark_aura and mt == Type.Dark):
+        if aura_break:
+            bonus *= 3/4
+        else:
+            bonus *= 4/3
     return mv_power * bonus
 
 
@@ -229,6 +239,7 @@ def _ratio():
 def _affected_at_stat():
     bonus = 1.0
     if at_with_flower_gift and _affected_weather() == Weather.Sunny:
+        # 攻撃のみ
         bonus *= 1.5
     return at_stat * bonus
 
@@ -236,6 +247,7 @@ def _affected_at_stat():
 def _affected_df_stat():
     bonus = 1.0
     if df_with_flower_gift and _affected_weather() == Weather.Sunny:
+        # 特防のみ
         bonus *= 1.5
     return df_stat * bonus
 

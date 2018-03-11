@@ -228,3 +228,11 @@ def test_air_lock():
     d2.mv_type = d2.Type.Water
     d2.weather = d2.Weather.Drought
     assert d2.calc() == 54
+
+
+def test_aura_break():
+    d2.fairy_aura = True
+    d2.mv_type = d2.Type.Fairy
+    assert d2.calc() == 72
+    d2.aura_break = True
+    assert d2.calc() == 41
