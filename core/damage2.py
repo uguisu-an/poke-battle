@@ -62,7 +62,7 @@ class Ability(enum.Enum):
     TintedLens = 2
     LiquidVoice = 3
     AirLock = 4
-    ElectricSkin = 5
+    Galvanize = 5
     LongReach = 6
     AuraBreak = 7
     ToughClaws = 8
@@ -87,6 +87,10 @@ class Ability(enum.Enum):
     Adaptability = 27
     CloudNine = 28
     FairyAura = 29
+    Refridgerate = 30
+    Aerilate = 31
+    Pixilate = 32
+    Normalize = 33
 
 
 class Item(enum.Enum):
@@ -206,6 +210,12 @@ def _affected_power():
         bonus *= 1/3
     if at_ability == Ability.Analyze:
         bonus *= 1.3
+    # スキン系は元々ノーマルだった技の威力を上げるのでここでは元のタイプを見る
+    if at_ability in {Ability.Galvanize, Ability.Refridgerate,
+                      Ability.Aerilate, Ability.Pixilate} and mv_type == Type.Normal:
+        bonus *= 1.2
+    if at_ability == Ability.Normalize:
+        bonus *= 1.2
     if (_fairy_aura() and mt == Type.Fairy) or (_dark_aura() and mt == Type.Dark):
         if _aura_break():
             bonus *= 3/4
@@ -338,12 +348,25 @@ def _inverse_type_table_cell(type_effect):
 
 # 効果の影響を受けたわざタイプを得る
 def _affected_mv_type():
+    mt = mv_type
     if at_with_electrify:
         return Type.Electric
     if ion_deluge and mv_type == Type.Normal:
         return Type.Electric
     if at_ability == Ability.LiquidVoice and mv_style == MoveStyle.Sound:
         return Type.Water
+    if at_ability == Ability.Galvanize and mv_type == Type.Normal:
+        return Type.Electric
+    if at_ability == Ability.Refridgerate and mv_type == Type.Normal:
+        return Type.Ice
+    if at_ability == Ability.Pixilate and mv_type == Type.Normal:
+        return Type.Fairy
+    if at_ability == Ability.Aerilate and mv_type == Type.Normal:
+        return Type.Flying
+    if at_ability == Ability.Normalize:
+        if ion_deluge:
+            return Type.Electric
+        return Type.Normal
     return mv_type
 
 

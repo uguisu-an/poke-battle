@@ -4,6 +4,7 @@ import core.damage2 as d2
 
 STANDARD = 54
 SUPER_EFFECT_2 = 109
+SUPER_EFFECT_2_AND_MATCH = 130
 SUPER_EFFECT_4 = 219
 
 
@@ -220,7 +221,7 @@ def test_liquid_voice():
     d2.df_type = {d2.Type.Fire}
     assert d2.calc() == 54
     d2.mv_style = d2.MoveStyle.Sound
-    assert d2.calc() == 109
+    assert d2.calc() == SUPER_EFFECT_2
 
 
 def test_air_lock():
@@ -236,3 +237,19 @@ def test_aura_break():
     assert d2.calc() == 72
     d2.at_ability = d2.Ability.AuraBreak
     assert d2.calc() == 41
+
+
+def test_galvanize():
+    d2.at_ability = d2.Ability.Galvanize
+    d2.mv_type = d2.Type.Normal
+    d2.df_type = {d2.Type.Water}
+    assert d2.calc() == 130
+
+
+def test_normalize_and_ion_deluge():
+    d2.at_ability = d2.Ability.Normalize
+    d2.ion_deluge = True
+    d2.mv_type = d2.Type.Water
+    d2.df_type = {d2.Type.Water}
+    # プラズマシャワーが適用される
+    assert d2.calc() == 130
