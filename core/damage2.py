@@ -113,6 +113,7 @@ class Ability(enum.Enum):
     Plus = 47
     Minus = 48
     Levitate = 49
+    Protean = 50    # 永続性があるので戦闘にまとめるべきか
 
 
 class Item(enum.Enum):
@@ -417,6 +418,7 @@ def _type_match():
     if _is_type_match():
         if at_ability == Ability.Adaptability:
             return 2.0
+        # FIXME: 1.5だった
         return 1.2
     return 1.0
 
@@ -480,6 +482,9 @@ def _affected_mv_type():
 
 def _affected_at_type():
     at = set(at_type.copy())
+    if at_ability == Ability.Protean:
+        # TODO: そうでんと合わせた時はどっちになる？
+        return {_affected_mv_type()}
     if at_ability == Ability.Forecast:
         if weather in {Weather.Sunny, Weather.Drought}:
             at = {Type.Fire}

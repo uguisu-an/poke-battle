@@ -397,3 +397,13 @@ def test_levitate_for_defender():
     assert d2.calc() == 0
     d2.gravity = True
     assert d2.calc() == STANDARD
+
+
+def test_protean():
+    d2.at_ability = d2.Ability.Protean
+    d2.mv_type = d2.Type.Fire
+    assert d2.calc() == 65
+    d2.mv_type = d2.Type.Water
+    assert d2.calc() == 65
+    d2.mv_type = d2.Type.Bug
+    assert d2.calc() == 65
