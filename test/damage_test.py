@@ -369,3 +369,12 @@ def test_brain_force():
     d2.mv_type = d2.Type.Bug
     d2.df_type = {d2.Type.Grass}
     assert d2.calc() == 131
+
+
+def test_plus_minus():
+    d2.at_ability = d2.Ability.Plus
+    d2.at_with_minus = True
+    assert d2.calc() == 81
+    d2.df_ability = d2.Ability.Minus
+    d2.df_with_plus = True
+    assert d2.calc() == 54

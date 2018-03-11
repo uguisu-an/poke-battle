@@ -110,6 +110,8 @@ class Ability(enum.Enum):
     FlareBoost = 44
     Steelworker = 45
     BrainForce = 46
+    Plus = 47
+    Minus = 48
 
 
 class Item(enum.Enum):
@@ -146,6 +148,7 @@ at_with_burn = False
 # 味方の特性
 at_with_battery = False
 at_with_flower_gift = False
+at_with_minus = False
 
 df_stat = 100
 df_rank = 0
@@ -168,6 +171,7 @@ df_with_forests_curse = False
 # 味方の特性
 df_with_flower_gift = False
 df_with_friend_guard = False
+df_with_plus = False
 
 critical_hit = False
 weather: Weather = Weather.Calm
@@ -354,6 +358,9 @@ def _affected_at_stat():
         # 特攻のみ
         # やけど状態のとき
         bonus *= 1.5
+    if at_ability == Ability.Plus and at_with_minus:
+        # 特攻のみ
+        bonus *= 1.5
     return at_stat * bonus
 
 
@@ -361,6 +368,9 @@ def _affected_df_stat():
     bonus = 1.0
     # TODO: Droughtも対象？
     if df_with_flower_gift and _affected_weather() == Weather.Sunny:
+        # 特防のみ
+        bonus *= 1.5
+    if df_ability == Ability.Minus and df_with_plus:
         # 特防のみ
         bonus *= 1.5
     return df_stat * bonus
