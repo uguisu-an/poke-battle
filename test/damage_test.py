@@ -386,7 +386,14 @@ def test_levitate():
     d2.at_ability = d2.Ability.Levitate
     d2.mv_type = d2.Type.Electric
     d2.terrain = d2.Terrain.Electric
-    assert d2.calc() == 54
+    assert d2.calc() == STANDARD
     d2.gravity = True
     assert d2.calc() == 81
 
+
+def test_levitate_for_defender():
+    d2.df_ability = d2.Ability.Levitate
+    d2.mv_type = d2.Type.Ground
+    assert d2.calc() == 0
+    d2.gravity = True
+    assert d2.calc() == STANDARD

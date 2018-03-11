@@ -509,6 +509,8 @@ def _type_effect():
     dt = _affected_df_type()
     if df_with_magnet_rise and not gravity and mt == Type.Ground:
         return 0
+    if df_ability == Ability.Levitate and not gravity and mt == Type.Ground:
+        return 0
     e = 1.0
     for t in dt:
         if t is None:
@@ -578,6 +580,9 @@ def _other_bonus():
         bonus *= 2.0
     if at_ability == Ability.BrainForce and _type_effect() > 1:
         bonus *= 1.2
+    if at_ability == Ability.Stakeout:
+        # 防御側が交代したターンのみ
+        bonus *= 2.0
     return bonus
 
 
