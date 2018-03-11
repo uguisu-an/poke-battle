@@ -272,3 +272,15 @@ def test_solar_power():
     assert d2.calc() == 54
     d2.weather = d2.Weather.Sunny
     assert d2.calc() == 81
+
+
+def test_water_bubble_for_attacker():
+    d2.at_ability = d2.Ability.WaterBubble
+    d2.mv_type = d2.Type.Water
+    assert d2.calc() == 107
+
+
+def test_water_bubble_for_defender():
+    d2.mv_type = d2.Type.Fire
+    d2.df_ability = d2.Ability.WaterBubble
+    assert d2.calc() == 28

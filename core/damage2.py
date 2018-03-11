@@ -237,6 +237,10 @@ def _affected_power():
         bonus *= 1.5
     if at_ability == Ability.Swarm and _affected_mv_type() == Type.Bug:
         bonus *= 1.5
+    if at_ability == Ability.WaterBubble and _affected_mv_type() == Type.Water:
+        bonus *= 2.0
+    if df_ability == Ability.WaterBubble and _affected_mv_type() == Type.Fire:
+        bonus *= 0.5
     # ここまで
     if (_fairy_aura() and mt == Type.Fairy) or (_dark_aura() and mt == Type.Dark):
         if _aura_break():
