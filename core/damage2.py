@@ -92,6 +92,7 @@ class Ability(enum.Enum):
     Pixilate = 32
     Normalize = 33
     IronFist = 34
+    Blaze = 35
 
 
 class Item(enum.Enum):
@@ -223,6 +224,14 @@ def _affected_power():
         bonus *= 1.5
     if at_ability == Ability.IronFist and mv_style == MoveStyle.Fist:
         bonus *= 1.2
+    # HPが1/3以下のとき限定
+    if at_ability == Ability.Torrent and _affected_mv_type() == Type.Water:
+        bonus *= 1.5
+    if at_ability == Ability.Overgrow and _affected_mv_type() == Type.Grass:
+        bonus *= 1.5
+    if at_ability == Ability.Blaze and _affected_mv_type() == Type.Fire:
+        bonus *= 1.5
+    # ここまで
     if (_fairy_aura() and mt == Type.Fairy) or (_dark_aura() and mt == Type.Dark):
         if _aura_break():
             bonus *= 3/4
