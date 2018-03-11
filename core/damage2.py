@@ -452,6 +452,8 @@ def _type_effect():
 
 def _critical_bonus():
     if critical_hit:
+        if at_ability == Ability.Sniper:
+            return 1.5 * 1.5
         return 1.5
     return 1.0
 

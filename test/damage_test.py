@@ -304,3 +304,9 @@ def test_infiltrator():
     d2.df_with_reflect = True
     d2.df_with_light_screen = True
     assert d2.calc() == STANDARD
+
+
+def test_sniper():
+    d2.at_ability = d2.Ability.Sniper
+    d2.critical_hit = True
+    assert d2.calc() == 123
