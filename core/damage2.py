@@ -4,8 +4,7 @@ from typing import Set
 from copy import deepcopy
 
 
-# TODO: IntEnumにするとそのまま数字として扱えるみたい
-class Type(enum.Enum):
+class Type(enum.IntEnum):
     Normal = 0
     Fire = 1
     Water = 2
@@ -307,14 +306,14 @@ def _affected_type_table():
     table = deepcopy(type_table)
     if gravity:
         # じゅうりょくはさかさバトルに先立つ
-        table[Type.Ground.value][Type.Flying.value] = 1.0
+        table[Type.Ground][Type.Flying] = 1.0
     if df_with_foresight:
         # TODO: さかさバトルの影響は？
-        table[Type.Normal.value][Type.Ghost.value] = 1.0
-        table[Type.Fighting.value][Type.Ghost.value] = 1.0
+        table[Type.Normal][Type.Ghost] = 1.0
+        table[Type.Fighting][Type.Ghost] = 1.0
     if df_with_miracle_eye:
         # TODO: さかさバトルの影響は？
-        table[Type.Psychic.value][Type.Dark.value] = 1.0
+        table[Type.Psychic][Type.Dark] = 1.0
     if inverse_battle:
         return _inverse_type_table(table)
     return table
@@ -376,7 +375,7 @@ def _type_effect():
     for t in dt:
         if t is None:
             continue
-        e *= tt[mt.value][t.value]
+        e *= tt[mt][t]
     return e
 
 
