@@ -253,3 +253,9 @@ def test_normalize_and_ion_deluge():
     d2.df_type = {d2.Type.Water}
     # プラズマシャワーが適用される
     assert d2.calc() == 130
+
+
+def test_tough_claws():
+    d2.at_ability = d2.Ability.ToughClaws
+    d2.mv_direct = True
+    assert d2.calc() == 70

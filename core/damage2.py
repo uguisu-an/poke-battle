@@ -53,7 +53,6 @@ class MoveStyle(enum.Enum):
     Other = 1
     Sound = 2
     Jaw = 3
-    Claw = 4
 
 
 class Ability(enum.Enum):
@@ -103,8 +102,7 @@ mv_level = 50
 mv_type: Type = Type.Normal
 mv_form: MoveForm = MoveForm.Physical
 mv_style = MoveStyle.Other
-# 直接・間接を扱うのは保留
-# mv_direct = False
+mv_direct = False
 
 at_stat = 100
 at_rank = 0
@@ -194,6 +192,7 @@ def _base_damage():
     return _affected_power() * (mv_level+5) * _ratio() / 125 + 2
 
 
+# 威力の計算
 def _affected_power():
     mt = _affected_mv_type()
     bonus = 1.0
@@ -216,6 +215,8 @@ def _affected_power():
         bonus *= 1.2
     if at_ability == Ability.Normalize:
         bonus *= 1.2
+    if at_ability == Ability.ToughClaws and mv_direct:
+        bonus *= 1.3
     if (_fairy_aura() and mt == Type.Fairy) or (_dark_aura() and mt == Type.Dark):
         if _aura_break():
             bonus *= 3/4
