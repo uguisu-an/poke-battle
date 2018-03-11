@@ -234,5 +234,5 @@ def test_aura_break():
     d2.fairy_aura = True
     d2.mv_type = d2.Type.Fairy
     assert d2.calc() == 72
-    d2.aura_break = True
+    d2.at_ability = d2.Ability.AuraBreak
     assert d2.calc() == 41

@@ -87,6 +87,7 @@ class Ability(enum.Enum):
     Technician = 26
     Adaptability = 27
     CloudNine = 28
+    FairyAura = 29
 
 
 class Item(enum.Enum):
@@ -206,12 +207,24 @@ def _affected_power():
         bonus *= 1/3
     if at_ability == Ability.Analyze:
         bonus *= 1.3
-    if (fairy_aura and mt == Type.Fairy) or (dark_aura and mt == Type.Dark):
-        if aura_break:
+    if (_fairy_aura() and mt == Type.Fairy) or (_dark_aura() and mt == Type.Dark):
+        if _aura_break():
             bonus *= 3/4
         else:
             bonus *= 4/3
     return mv_power * bonus
+
+
+def _fairy_aura():
+    return fairy_aura or (at_ability == Ability.FairyAura) or (df_ability == Ability.FairyAura)
+
+
+def _dark_aura():
+    return dark_aura or (at_ability == Ability.DarkAura) or (df_ability == Ability.DarkAura)
+
+
+def _aura_break():
+    return aura_break or (at_ability == Ability.AuraBreak) or (df_ability == Ability.AuraBreak)
 
 
 # TODO: 浮遊に対応する
