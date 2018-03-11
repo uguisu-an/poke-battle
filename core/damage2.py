@@ -324,7 +324,7 @@ def _affected_type_table():
     if gravity:
         # じゅうりょくはさかさバトルに先立つ
         table[Type.Ground][Type.Flying] = 1.0
-    if df_with_foresight:
+    if df_with_foresight or at_ability == Ability.Scrappy:
         # TODO: さかさバトルの影響は？
         table[Type.Normal][Type.Ghost] = 1.0
         table[Type.Fighting][Type.Ghost] = 1.0
