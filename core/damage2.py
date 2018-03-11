@@ -4,6 +4,7 @@ from typing import Set
 from copy import deepcopy
 
 
+# TODO: IntEnumにするとそのまま数字として扱えるみたい
 class Type(enum.Enum):
     Normal = 0
     Fire = 1
@@ -49,8 +50,36 @@ class Terrain(enum.Enum):
     Psychic = 4
 
 
-class Ability(enum.Enum):
-    Nothing = 0
+Ability = enum.Enum('Ability', '''
+Nothing
+Analyze
+TintedLens
+LiquidVoice
+AirLock
+ElectricSkin
+LongReach
+AuraBreak
+ToughClaws
+StrongJaw
+Scrappy
+Torrent
+Guts
+SolarPower
+Overgrow
+WaterBubble
+SkySkin
+SkillLink
+Reckless
+SandForce
+Infiltrator
+Sniper
+SlowStart
+DarkAura
+SheerForce
+HugePower
+Technician
+Adaptability
+''')
 
 
 class Item(enum.Enum):
@@ -162,6 +191,8 @@ def _affected_power():
         bonus *= 1/3
     if df_with_mud_sport and mt == Type.Electric:
         bonus *= 1/3
+    if at_ability == Ability.Analyze:
+        bonus *= 1.3
     return mv_power * bonus
 
 
@@ -354,6 +385,8 @@ def _other_bonus():
         bonus *= 0
     if df_with_friend_guard:
         bonus *= 0.75
+    if at_ability == Ability.TintedLens and _type_effect() < 1:
+        bonus *= 2.0
     return bonus
 
 

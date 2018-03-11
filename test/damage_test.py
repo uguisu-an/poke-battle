@@ -198,3 +198,17 @@ def test_water_sport():
     assert d2.calc() == 54
     d2.mv_type = d2.Type.Fire
     assert d2.calc() == 19
+
+
+def test_analyze():
+    # TODO: 最後に攻撃したとき限定
+    d2.at_ability = d2.Ability.Analyze
+    assert d2.calc() == 70
+
+
+def test_not_effective():
+    d2.mv_type = d2.Type.Dark
+    d2.df_type = {d2.Type.Fighting, d2.Type.Dark}
+    assert d2.calc() == 13
+    d2.at_ability = d2.Ability.TintedLens
+    assert d2.calc() == 27
