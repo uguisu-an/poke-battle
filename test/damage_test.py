@@ -407,3 +407,9 @@ def test_protean():
     assert d2.calc() == 65
     d2.mv_type = d2.Type.Bug
     assert d2.calc() == 65
+
+
+def test_yoga_power():
+    d2.at_ability = d2.Ability.YogaPower
+    d2.mv_form = d2.MoveForm.Physical
+    assert d2.calc() == 107

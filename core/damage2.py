@@ -60,6 +60,7 @@ class MoveStyle(enum.Enum):
     Sound = 2
     Fang = 3
     Fist = 4
+    Pulse = 5
 
 
 class Ability(enum.Enum):
@@ -114,6 +115,8 @@ class Ability(enum.Enum):
     Minus = 48
     Levitate = 49
     Protean = 50    # 永続性があるので戦闘にまとめるべきか
+    MegaLauncher = 51
+    YogaPower = 52
 
 
 class Item(enum.Enum):
@@ -272,7 +275,7 @@ def _affected_power():
         # 追加効果のある技限定
         # 代わりに追加効果が出なくなる
         bonus *= 1.3
-    if at_ability == Ability.HugePower and mv_form == MoveForm.Physical:
+    if at_ability in {Ability.HugePower, Ability.YogaPower} and mv_form == MoveForm.Physical:
         bonus *= 2.0
     if at_ability == Ability.ToxicBoost and mv_form == MoveForm.Physical:
         # どく状態のとき
@@ -288,6 +291,8 @@ def _affected_power():
             bonus *= 1.25
         if at_sex + df_sex == 0:
             bonus *= 0.75
+    if at_ability == Ability.MegaLauncher and mv_style == MoveStyle.Pulse:
+        bonus *= 1.5
     if (_fairy_aura() and mt == Type.Fairy) or (_dark_aura() and mt == Type.Dark):
         if _aura_break():
             bonus *= 3/4
