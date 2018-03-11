@@ -98,6 +98,7 @@ class Ability(enum.Enum):
     Stakeout = 38
     Defeatist = 39
     Forecast = 40
+    Unaware = 41
 
 
 class Item(enum.Enum):
@@ -340,14 +341,14 @@ def _affected_df_stat():
 
 # ランク補正のかかった攻撃値
 def _at_stat_with_rank():
-    if critical_hit and at_rank < 0:
+    if (df_ability == Ability.Unaware) or (critical_hit and at_rank < 0):
         return _affected_at_stat()
     return _stat_with_rank(_affected_at_stat(), at_rank)
 
 
 # ランク補正のかかった防御値
 def _df_stat_with_rank():
-    if critical_hit and df_rank > 0:
+    if (at_ability == Ability.Unaware) or (critical_hit and df_rank > 0):
         return _affected_df_stat()
     return _stat_with_rank(_affected_df_stat(), df_rank)
 

@@ -336,3 +336,19 @@ def test_forecast():
     assert d2.calc() == 98
     d2.weather = d2.Weather.Calm
     assert d2.calc() == 54
+
+
+def test_unaware_for_attacker():
+    d2.at_ability = d2.Ability.Unaware
+    d2.df_rank = 6
+    assert d2.calc() == 54
+    d2.at_rank = 2
+    assert d2.calc() == 107
+
+
+def test_unaware_for_defender():
+    d2.df_ability = d2.Ability.Unaware
+    d2.at_rank = 6
+    assert d2.calc() == 54
+    d2.df_rank = 2
+    assert d2.calc() == 28
