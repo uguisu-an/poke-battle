@@ -149,7 +149,8 @@ def test_forests_curse():
 
 
 def test_flower_gift():
-    d2.at_with_flower_gift = True
+    # d2.at_with_flower_gift = True
+    d2.at_ability = d2.Ability.FlowerGift
     d2.weather = d2.Weather.Sunny
     d2.mv_form = d2.MoveForm.Physical
     assert d2.calc() == 81

@@ -118,6 +118,7 @@ class Ability(enum.Enum):
     MegaLauncher = 51
     YogaPower = 52
     FlashFire = 53
+    FlowerGift = 54
 
 
 class Item(enum.Enum):
@@ -340,10 +341,14 @@ def _ratio():
     return _at_stat_with_rank() / _df_stat_with_rank()
 
 
+def _at_with_flower_gift():
+    return at_with_flower_gift or at_ability == Ability.FlowerGift
+
+
 def _affected_at_stat():
     bonus = 1.0
     # TODO: Droughtも対象？
-    if at_with_flower_gift and _affected_weather() == Weather.Sunny:
+    if _at_with_flower_gift() and _affected_weather() == Weather.Sunny:
         # 攻撃のみ
         bonus *= 1.5
     if at_ability == Ability.Guts:
@@ -376,10 +381,14 @@ def _affected_at_stat():
     return at_stat * bonus
 
 
+def _df_with_flower_gift():
+    return df_with_flower_gift or df_ability == Ability.FlowerGift
+
+
 def _affected_df_stat():
     bonus = 1.0
     # TODO: Droughtも対象？
-    if df_with_flower_gift and _affected_weather() == Weather.Sunny:
+    if _df_with_flower_gift() and _affected_weather() == Weather.Sunny:
         # 特防のみ
         bonus *= 1.5
     if df_ability == Ability.Minus and df_with_plus:
