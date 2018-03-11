@@ -311,6 +311,10 @@ def _affected_at_stat():
         # 両方
         # 体力が半分以下のとき
         bonus *= 0.5
+    if at_ability == Ability.SlowStart:
+        # 攻撃のみ（素早さも）
+        # 場に出てから５ターンの間
+        bonus *= 0.5
     return at_stat * bonus
 
 
