@@ -265,3 +265,10 @@ def test_strong_jaw():
     d2.at_ability = d2.Ability.StrongJaw
     d2.mv_style = d2.MoveStyle.Fang
     assert d2.calc() == 81
+
+
+def test_solar_power():
+    d2.at_ability = d2.Ability.SolarPower
+    assert d2.calc() == 54
+    d2.weather = d2.Weather.Sunny
+    assert d2.calc() == 81

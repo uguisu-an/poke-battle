@@ -94,6 +94,9 @@ class Ability(enum.Enum):
     IronFist = 34
     Blaze = 35
     Swarm = 36
+    Hustle = 37
+    Stakeout = 38
+    Defeatist = 39
 
 
 class Item(enum.Enum):
@@ -282,6 +285,21 @@ def _affected_at_stat():
     if at_with_flower_gift and _affected_weather() == Weather.Sunny:
         # 攻撃のみ
         bonus *= 1.5
+    if at_ability == Ability.Guts:
+        # 攻撃のみ
+        # 状態異常時限定
+        bonus *= 1.5
+    if at_ability == Ability.SolarPower and _affected_weather() == Weather.Sunny:
+        # 特攻のみ
+        bonus *= 1.5
+    if at_ability == Ability.Hustle:
+        # 攻撃のみ
+        # 命中率が0.8倍になる
+        bonus *= 1.5
+    if at_ability == Ability.Defeatist:
+        # 両方
+        # 体力が半分以下のとき
+        bonus *= 0.5
     return at_stat * bonus
 
 
