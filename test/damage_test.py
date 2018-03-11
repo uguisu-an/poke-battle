@@ -77,6 +77,8 @@ def test_electric_terrain():
     assert d2.calc() == 81
     d2.at_type = {d2.Type.Flying}
     assert d2.calc() == STANDARD
+    d2.gravity = True
+    assert d2.calc() == 81
 
 
 def test_ion_deluge():
@@ -385,4 +387,6 @@ def test_levitate():
     d2.mv_type = d2.Type.Electric
     d2.terrain = d2.Terrain.Electric
     assert d2.calc() == 54
+    d2.gravity = True
+    assert d2.calc() == 81
 

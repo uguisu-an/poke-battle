@@ -311,16 +311,20 @@ def _aura_break():
 # 地形による補正
 def _terrain_bonus():
     mt = _affected_mv_type()
-    if Type.Flying not in _affected_at_type() and at_ability != Ability.Levitate:
-        if terrain == Terrain.Electric and mt == Type.Electric:
-            return 1.5
-        if terrain == Terrain.Mist and mt == Type.Dragon:
-            return 0.5
-        if terrain == Terrain.Grass and mt == Type.Grass:
-            # TODO: Earthquake, Bulldoze, Magnitude * 0.5
-            return 1.5
-        if terrain == Terrain.Psychic and mt == Type.Psychic:
-            return 1.5
+    if not gravity:
+        if Type.Flying in _affected_at_type():
+            return 1.0
+        if at_ability == Ability.Levitate:
+            return 1.0
+    if terrain == Terrain.Electric and mt == Type.Electric:
+        return 1.5
+    if terrain == Terrain.Mist and mt == Type.Dragon:
+        return 0.5
+    if terrain == Terrain.Grass and mt == Type.Grass:
+        # TODO: Earthquake, Bulldoze, Magnitude * 0.5
+        return 1.5
+    if terrain == Terrain.Psychic and mt == Type.Psychic:
+        return 1.5
     return 1.0
 
 
