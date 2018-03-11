@@ -240,13 +240,15 @@ def _affected_power():
         bonus *= 1.5
     if at_ability == Ability.Swarm and _affected_mv_type() == Type.Bug:
         bonus *= 1.5
+    # ここまで
     if at_ability == Ability.WaterBubble and _affected_mv_type() == Type.Water:
         bonus *= 2.0
     if at_ability == Ability.Reckless and mv_reckless:
         bonus *= 1.2
+    if at_ability == Ability.SandForce and _affected_weather() == Weather.Sandstorm and _affected_mv_type() in {Type.Rock, Type.Steel, Type.Ground}:
+        bonus *= 1.3
     if df_ability == Ability.WaterBubble and _affected_mv_type() == Type.Fire:
         bonus *= 0.5
-    # ここまで
     if (_fairy_aura() and mt == Type.Fairy) or (_dark_aura() and mt == Type.Dark):
         if _aura_break():
             bonus *= 3/4

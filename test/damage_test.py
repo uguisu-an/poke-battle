@@ -290,3 +290,10 @@ def test_reckless():
     d2.at_ability = d2.Ability.Reckless
     d2.mv_reckless = True
     assert d2.calc() == 65
+
+
+def test_sand_force():
+    d2.at_ability = d2.Ability.SandForce
+    d2.mv_type = d2.Type.Rock
+    d2.weather = d2.Weather.Sandstorm
+    assert d2.calc() == 70
